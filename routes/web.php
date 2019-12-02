@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/test', function () {
-    return 'hello';
+    return exec('whoami');
 });
 
 Route::get('/test/{post}', function ($post) {
