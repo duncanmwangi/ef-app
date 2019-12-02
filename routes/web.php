@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/test', function () {
+    return 'hello';
+});
+
+Route::get('/test/{post}', function ($post) {
+    return 'hello'.$post;
+});
