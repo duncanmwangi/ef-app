@@ -36,4 +36,33 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isAdmin()
+    {
+        return $this->role=='admin';
+    }
+
+    public function isRegionalFundManager()
+    {
+        return $this->role=='regional-fund-manager';
+    }
+
+    public function isFundManager()
+    {
+        return $this->role=='fund-manager';
+    }
+
+    public function isInvestor()
+    {
+        return $this->role=='investor';
+    }
+    public function getNameAttribute()
+    {
+        return "{$this->firstName} {$this->lastName}";
+    }
+    public function getRoleNameAttribute()
+    {
+        return ucwords(str_ireplace('-', ' ', $this->role));
+    }
+
 }

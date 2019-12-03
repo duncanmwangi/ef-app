@@ -1,0 +1,14 @@
+.bg-plum-plate {
+  background-image: linear-gradient(135deg, #233953 0%, #233953 100%) !important;
+}
+
+.app-logo-inverse {
+  height: 63px;
+  width: 207px;
+  background-size: 207px 63px;
+}
+
+.app-main .app-main__inner {
+  background-color: #EDF0F6;
+}
+

@@ -15,7 +15,18 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->string('name');
+            $table->string('firstName');
+            $table->string('lastName');
+            $table->string('phone');
+            $table->string('alternatePhone')->nullable();
+            $table->string('street1');
+            $table->string('street2')->nullable();
+            $table->string('city');
+            $table->string('state');
+            $table->string('zip');
+            $table->string('country');
+            $table->string('avatarPath')->nullable();
+            $table->enum('role',['admin','regional-fund-manager','fund-manager','investor'])->default('investor');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
