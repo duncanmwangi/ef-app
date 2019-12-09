@@ -6,6 +6,8 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Illuminate\Support\Facades\Storage;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -63,6 +65,18 @@ class User extends Authenticatable
     public function getRoleNameAttribute()
     {
         return ucwords(str_ireplace('-', ' ', $this->role));
+    }
+
+    public function getAvatarSrcAttribute($value='')
+    {
+
+        
+        $path = str_ireplace('storage/', 'public/', $this->avatarPath);
+
+        
+        $exists = Storage::disk('local')->exists($path);
+        
+        return $exists ?asset($this->avatarPath) : asset('assets/images/avatars/1.jpg');
     }
 
 }

@@ -37,13 +37,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.users.create') mm-active @endif">
+                            <a href="{{ route('admin.users.create') }}" class="@if(Route::currentRouteName()=='admin.users.create') mm-active @endif">
                                 <i class="metismenu-icon"></i>
                                 Add User
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.users.index') mm-active @endif">
+                            <a href="{{ route('admin.users.index') }}" class="@if(Route::currentRouteName()=='admin.users.index') mm-active @endif">
                                 <i class="metismenu-icon">
                                 </i>All Users
                             </a>
@@ -91,7 +91,8 @@
                         </i>Settings
                     </a>
                 </li>
-                <li class="@if(in_array(Route::currentRouteName(),['admin.password.change','admin.profile.edit'])) mm-active @endif">
+
+                <li class="@if(in_array(Route::currentRouteName(),['common.password.edit','common.profile.edit'])) mm-active @endif">
                     <a href="#">
                         <i class="metismenu-icon lnr-user">
                         </i>My Profile
@@ -99,13 +100,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.password.change') mm-active @endif">
+                            <a href="{{ route('common.password.edit') }}" class="@if(Route::currentRouteName()=='common.password.edit') mm-active @endif">
                                 <i class="metismenu-icon"></i>
                                 Change Password
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.profile.edit') mm-active @endif">
+                            <a href="{{ route('common.profile.edit') }}" class="@if(Route::currentRouteName()=='common.profile.edit') mm-active @endif">
                                 <i class="metismenu-icon">
                                 </i>Edit Profile
                             </a>
@@ -113,4 +114,5 @@
                         
                     </ul>
                 </li>
+
             </ul>
