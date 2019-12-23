@@ -15,7 +15,9 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::orderBy('firstName','asc')->paginate(2);
+        $users = User::orderBy('firstName','asc')
+                ->paginate(env('ITEMS_PER_PAGE'));
+
         return view('admin.users.index',['users'=>$users]);
     }
 
@@ -26,7 +28,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.users.create');
     }
 
     /**
@@ -40,16 +42,6 @@ class UsersController extends Controller
         //
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
-     */
-    public function show(User $user)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -59,7 +51,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit',['user',$user]);
     }
 
     /**

@@ -8,7 +8,7 @@
 
 @include('common.errors')
 
-<div class="col-md-6">
+<div class="col-md-9">
 
 
     <div class="main-card mb-3 card">
@@ -27,6 +27,7 @@
 		                    <th>First Name</th>
 		                    <th>Email Address</th>
 		                    <th>Role</th>
+		                    <th>Actions</th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -40,11 +41,12 @@
 				                    <td>{{ $user->name }}</td>
 				                    <td>{{ $user->email }}</td>
 				                    <td>{{ $user->role_name }}</td>
+				                    <td>{{ $user->role_name }}</td>
 				                </tr>
 						    @endforeach
 						@else
 							<tr>
-			                    <th scope="row" colspan="3">No records found</th>
+			                    <th scope="row" colspan="6">No records found</th>
 			                </tr>
 						@endif
 	                </tbody>
