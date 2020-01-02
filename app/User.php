@@ -69,14 +69,70 @@ class User extends Authenticatable
 
     public function getAvatarSrcAttribute($value='')
     {
-
-        
         $path = str_ireplace('storage/', 'public/', $this->avatarPath);
-
         
         $exists = Storage::disk('local')->exists($path);
         
         return $exists ?asset($this->avatarPath) : asset('assets/images/avatars/1.jpg');
+    }
+
+    public static function allRegionalFundManagers($value='')
+    {
+        return User::where('role','regional-fund-manager')->orderBy('firstName','ASC')->get();
+    }
+
+
+    //relation ships
+    public function fundManagers()
+    {
+        return $this->hasMany('App\User','user_id')->where('role','fund-manager');
+    }
+
+    public function fundManager()
+    {
+        return $this->belongsTo('App\User','user_id')->where('role','fund-manager');
+    }
+    
+
+
+    public function investors()
+    {
+        return $this->hasMany('App\User','user_id')->where('role','investor');
+    }
+
+
+
+    public function regionalFundManager()
+    {
+        return $this->belongsTo('App\User','user_id')->where('role','regional-fund-manager');
+    }
+    
+    public function regionalFundManagers()
+    {
+        return $this->hasMany('App\User','user_id')->where('role','regional-fund-manager');
+    }
+
+    public function investments()
+    {
+        if($this->isInvestor()) return [];
+
+        return $this->hasMany('App\Investment','user_id');
+    }
+
+
+
+    public function administrator()
+    {
+        return $this->belongsTo('App\User','user_id')->where('role','admin');
+    }
+
+
+    public static function get_user_id_given_role($request)
+    {
+        if($request->role=='administrator' || $request->role=='regional-fund-manager') return auth()->user()->id;
+        if($request->role=='fund-manager') return $request->rfm;
+        if($request->role=='investor') return $request->fm;
+        return ;
     }
 
 }

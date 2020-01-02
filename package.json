@@ -10,24 +10,23 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js"
     },
     "devDependencies": {
-        "animate-sass": "^0.8.2",
-        "@babel/preset-react": "^7.0.0",
         "@babel/core": "^7.6.2",
         "@babel/preset-env": "^7.6.2",
-        "babel-loader": "^8.0.6",
+        "animate-sass": "^0.8.2",
         "axios": "^0.19",
+        "babel-loader": "^8.0.6",
         "bootstrap": "^4.0.0",
-        "css-loader": "^2.0.0",
         "cross-env": "^5.1",
+        "css-loader": "^2.0.0",
         "jquery": "^3.2",
         "laravel-mix": "^4.0.7",
         "lodash": "^4.17.13",
         "popper.js": "^1.12",
-        "react": "^16.2.0",
-        "react-dom": "^16.2.0",
         "resolve-url-loader": "^2.3.1",
-        "sass": "^1.15.2",
-        "sass-loader": "^7.1.0"
+        "sass": "^1.20.1",
+        "sass-loader": "7.*",
+        "vue": "^2.5.17",
+        "vue-template-compiler": "^2.6.10"
     },
     "dependencies": {
         "@chenfengyuan/datepicker": "^1.0.9",

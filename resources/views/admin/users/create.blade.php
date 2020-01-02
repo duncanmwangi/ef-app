@@ -81,16 +81,27 @@
                     <div class="col-md-6 drfm">
                         <div class="position-relative form-group">
                             <label for="rfm" class="">Regional Fund Manager</label>
-                            <select name="rfm" class="form-control @error('rfm') is-invalid @enderror">
+                            <select name="rfm" class="form-control rfm @error('rfm') is-invalid @enderror">
                                 <option value="">Select Regional Fund Manager</option>
+                                @foreach($regionalFundManagers as $rfm)
+                                    @php $selected = $rfm->id==old('rfm')?'selected="selected"':''; @endphp
+                                    <option value="{{ $rfm->id }}"  {{$selected}}>{{ $rfm->name }}</option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="col-md-6 dfm">
                         <div class="position-relative form-group">
                             <label for="fm" class="">Fund Manager</label>
-                            <select name="fm" class="form-control @error('fm') is-invalid @enderror">
+                            <select name="fm" class="form-control fm @error('fm') is-invalid @enderror">
                                 <option value="">Select Fund Manager</option>
+                                @php $fundManagers = get_fundmanagers(old('rfm')) @endphp
+                                @if($fundManagers)
+                                    @foreach($fundManagers as $fm)
+                                        @php $selected = $fm->id==old('fm')?'selected="selected"':''; @endphp
+                                        <option value="{{ $fm->id }}"  {{$selected}}>{{ $fm->name }}</option>
+                                    @endforeach
+                                @endif
                             </select>
                         </div>
                     </div>
@@ -132,7 +143,8 @@
                     <div class="col-md-4">
                         <div class="position-relative form-group">
                             <label for="state" class="">State</label>
-                            {!! USstatesSelect('state', old('state'), 'form-control') !!}
+                            @php $errorClass =$errors->get('state')?'is-invalid':''  @endphp
+                            {!! USstatesSelect('state', old('state'), 'form-control '.$errorClass) !!}
                         </div>
                     </div>
                     <div class="col-md-4">
@@ -148,7 +160,14 @@
                     <div class="col-md-6">
                         <div class="position-relative form-group">
                             <label for="password" class="">User Password</label>
-                            <input name="password" id="password" placeholder="Current Password" type="password" value="" class="form-control @error('password') is-invalid @enderror">
+                            <input name="password" id="password" placeholder="User Password" type="password" value="" class="form-control @error('password') is-invalid @enderror">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6">
+                        <div class="position-relative form-group">
+                            <label for="password" class="">Confirm User Password</label>
+                            <input name="cpassword" id="cpassword" placeholder="Confirm User Password" type="password" value="" class="form-control @error('password') is-invalid @enderror">
                         </div>
                     </div>
                 </div>
@@ -176,6 +195,7 @@
             }else if(cRole=='fund-manager'){
                 $('.drfm').show();
                 $('.dfms').show();
+                $('.dfm').hide();
             }else{
                 $('.dfms').hide();
             }
@@ -195,6 +215,28 @@
                 }
             });
 
+        $("body").on("change","select.rfm",function(){
+            let rfm = $(this).val();
+            if(rfm.length>0 && $('#dRole').val()=='investor'){
+                let url = "{{route('admin.users.jsonRfms','RFM-ID-HOLDER')}}";
+                $.get(url.replace('RFM-ID-HOLDER',rfm) ,function(data) {
+                    $('.fm').empty();
+                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+                    $.each(JSON.parse(data), function(index, fmObj){
+                        $('.fm').append('<option value="'+ fmObj.id +'">'+ fmObj.name +'</option>');
+                    });
+                });
+            }
+            else if($('#dRole').val()=='investor'){
+                    $('.fm').empty();
+                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+            }
         });
+
+
+        });
+
+
+
     </script>
 @endsection

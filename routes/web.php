@@ -11,7 +11,13 @@
 |
 */
 
-
+Route::get('test',function(){
+	dd(
+		App\InvestmentVehicle::where('status','active')
+		->get()
+		->random()
+	);
+});
 
 Auth::routes();
 
@@ -48,9 +54,34 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     	Route::get('/', 'UsersController@index')->name('index');
     	Route::get('/create', 'UsersController@create')->name('create');
     	Route::post('/', 'UsersController@store')->name('store');
-    	Route::get('/{user}/edit', 'UsersController@show')->name('show');
-    	Route::put('/{$user}', 'UsersController@update')->name('update');
-    	Route::delete('/{$user}', 'UsersController@destroy')->name('destroy');
+    	Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
+    	Route::put('/{user}', 'UsersController@update')->name('update');
+    	Route::delete('/{user}', 'UsersController@destroy')->name('destroy');
+    	Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
+    });
+    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+    	Route::get('/', 'InvestmentVehicleController@index')->name('index');
+    	Route::get('/create', 'InvestmentVehicleController@create')->name('create');
+    	Route::post('/', 'InvestmentVehicleController@store')->name('store');
+    	Route::get('/{investmentVehicle}/edit', 'InvestmentVehicleController@edit')->name('edit');
+    	Route::put('/{investmentVehicle}', 'InvestmentVehicleController@update')->name('update');
+    	Route::delete('/{investmentVehicle}', 'InvestmentVehicleController@destroy')->name('destroy');
+    });
+    Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
+        Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
+        Route::get('/{investmentVehicle}/create', 'InvestmentVehicleReturnsController@create')->name('create');
+        Route::post('/{investmentVehicle}/', 'InvestmentVehicleReturnsController@store')->name('store');
+        Route::get('/{investmentVehicle}/{investment}/edit', 'InvestmentVehicleReturnsController@edit')->name('edit');
+        Route::put('/{investmentVehicle}/{investment}', 'InvestmentVehicleReturnsController@update')->name('update');
+        Route::delete('/{investmentVehicle}/{investment}', 'InvestmentVehicleReturnsController@destroy')->name('destroy');
+    });
+    Route::name('investments.')->prefix('investments')->group(function(){
+        Route::get('/', 'InvestmentController@index')->name('index');
+        Route::get('/create', 'InvestmentController@create')->name('create');
+        Route::post('/', 'InvestmentController@store')->name('store');
+        Route::get('/{investment}/edit', 'InvestmentController@edit')->name('edit');
+        Route::put('/{investment}', 'InvestmentController@update')->name('update');
+        Route::delete('/{investment}', 'InvestmentController@destroy')->name('destroy');
     });
 });
 

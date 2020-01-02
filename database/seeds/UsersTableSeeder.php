@@ -14,7 +14,7 @@ class UsersTableSeeder extends Seeder
     {
         DB::table('users')->insert([
             'firstName' => 'Duncan',
-            'lastName' => 'Mwangi',
+            'lastName' => 'Administrator',
             'phone' => '0720455419',
             'street1' => '48',
             'city' => 'TAMPA',
@@ -28,7 +28,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'firstName' => 'Duncan',
-            'lastName' => 'Mwangi',
+            'lastName' => 'RFM',
             'phone' => '0720455419',
             'street1' => '48',
             'city' => 'TAMPA',
@@ -42,7 +42,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'firstName' => 'Duncan',
-            'lastName' => 'Mwangi',
+            'lastName' => 'FM',
             'phone' => '0720455419',
             'street1' => '48',
             'city' => 'TAMPA',
@@ -57,7 +57,7 @@ class UsersTableSeeder extends Seeder
 
         DB::table('users')->insert([
             'firstName' => 'Duncan',
-            'lastName' => 'Mwangi',
+            'lastName' => 'Investor',
             'phone' => '0720455419',
             'street1' => '48',
             'city' => 'TAMPA',

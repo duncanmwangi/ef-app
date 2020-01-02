@@ -7,7 +7,7 @@
                         </i>Dashboard
                     </a>
                 </li>
-                <li  class="@if(in_array(Route::currentRouteName(),['admin.investmentvehicles.create','admin.investmentvehicles.index'])) mm-active @endif">
+                <li  class="@if(in_array(Route::currentRouteName(),['admin.investment-vehicles.create','admin.investment-vehicles.index'])) mm-active @endif">
                     <a href="#">
                         <i class="metismenu-icon lnr-bus">
                         </i>Investment Vehicles
@@ -15,13 +15,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investmentvehicles.create') mm-active @endif">
+                            <a href="{{ route('admin.investment-vehicles.create') }}" class="@if(Route::currentRouteName()=='admin.investment-vehicles.create') mm-active @endif">
                                 <i class="metismenu-icon"></i>
                                 Add Investment Vehicle
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investmentvehicles.index') mm-active @endif">
+                            <a href="{{ route('admin.investment-vehicles.index') }}" class="@if(Route::currentRouteName()=='admin.investment-vehicles.index') mm-active @endif">
                                 <i class="metismenu-icon">
                                 </i>All Investment Vehicles
                             </a>
@@ -59,13 +59,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investments.create') mm-active @endif">
+                            <a href="{{ route('admin.investments.create') }}" class="@if(Route::currentRouteName()=='admin.investments.create') mm-active @endif">
                                 <i class="metismenu-icon"></i>
                                 Add Investment
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investments.index') mm-active @endif">
+                            <a href="{{ route('admin.investments.index') }}" class="@if(Route::currentRouteName()=='admin.investments.index') mm-active @endif">
                                 <i class="metismenu-icon">
                                 </i>All Investments
                             </a>

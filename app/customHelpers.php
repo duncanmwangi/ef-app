@@ -1,4 +1,5 @@
 <?php
+use App\User;
 function USstatesSelect($name='state',$selected_state="",$css_class="",$includeEmptyOption=true){
 	$states = [
 		'AL'=>"Alabama",  
@@ -66,3 +67,39 @@ function USstatesSelect($name='state',$selected_state="",$css_class="",$includeE
 	return $html;
 
 }
+
+
+function get_fundmanagers($regionalFundManagerID=0){
+	$rfm = User::find($regionalFundManagerID);
+	if(!$rfm) return false;
+	return $rfm->fundManagers;
+}
+
+function editButton($link="#",$text="Edit",$buttonClasses="",$iconClasses = "lnr-pencil")
+{
+	return '<a href="'.$link.'"><button class="btn-icon btn btn-primary btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
+}
+
+function deleteButton($link="#",$text="Delete",$buttonClasses="",$iconClasses = "lnr-trash")
+{
+	return '<form class="delete-form" method="POST" action="'.$link.'"> '.csrf_field().method_field('DELETE').'<button type="submit" class="btn-icon btn btn-danger btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button> </form>';
+}
+
+function formatDate($d,$format = 'm - d -Y'){
+	return $d->format($format);
+}
+
+function formatDateTime($d,$format = 'm - d -Y h:i:s A'){
+	return $d->format($format);
+}
+
+function moneyFormat($amount=0){
+	return number_format($amount,2);
+}
+
+// function currentDate(){
+// 	formatDate(now());
+// }
+// function now(){
+// 	return formatDateTime(Carbon::now());
+// }

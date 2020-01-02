@@ -6,14 +6,13 @@
 
 @section('content')
 
-@include('common.errors')
+
 
 <div class="col-md-9">
 
+@include('common.errors')
 
     <div class="main-card mb-3 card">
-    	<form method="POST" action="{{ route('common.profile.update') }}"> 
-    		@csrf
 	        <div class="card-header">
 	            Users
 	        </div>
@@ -26,6 +25,7 @@
 		                    <th>ID</th>
 		                    <th>First Name</th>
 		                    <th>Email Address</th>
+		                    <th>Phone</th>
 		                    <th>Role</th>
 		                    <th>Actions</th>
 		                </tr>
@@ -40,8 +40,9 @@
 				                    <td>{{ $user->id }}</td>
 				                    <td>{{ $user->name }}</td>
 				                    <td>{{ $user->email }}</td>
+				                    <td>{{ $user->phone }}</td>
 				                    <td>{{ $user->role_name }}</td>
-				                    <td>{{ $user->role_name }}</td>
+				                    <td>{!! editButton(route('admin.users.edit',$user->id)) !!} {!! deleteButton(route('admin.users.destroy',$user->id),'Delete','delete-user') !!}</td>
 				                </tr>
 						    @endforeach
 						@else
@@ -63,8 +64,19 @@
 	        <div class="card-footer">
 	            {{ $users->links() }}
 	        </div>
-        </form>
     </div>
 </div>
 
+@endsection
+
+
+@section('scripts')
+<script>
+    $('.delete-user').click(function(e){
+        e.preventDefault();
+        if (confirm('Are you sure you want to delete user?')) {
+            $(e.target).closest('form').submit();
+        }
+    });
+</script>
 @endsection
