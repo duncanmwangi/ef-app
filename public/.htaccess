@@ -4,7 +4,7 @@
     </IfModule>
 
     RewriteEngine On
-    RewriteBase /ef-app/
+    RewriteBase /efa/
 
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
