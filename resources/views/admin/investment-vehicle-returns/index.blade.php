@@ -43,14 +43,13 @@
 				                    <th scope="row">{{ $offset++ }}</th>
 				                    <td>{{ $investmentVehicleReturn->id }}</td>
 				                    <td>{{ $investmentVehicleReturn->title }}</td>
-				                    <td>{{ $investmentVehicleReturn->percent_roi }}</td>
-				                    <td>{{ formatDate($investmentVehicleReturn->date_to_issue) }}</td>
+				                    <td>{{ $investmentVehicleReturn->percent_return }}</td>
+				                    <td>{{ $investmentVehicleReturn->date_to_issue }}</td>
 				                    <td>{{ $investmentVehicleReturn->status }}</td>
-				                    <td>{{ $investmentVehicleReturn->investments->count() }}</td>
-				                    <td>{{ formatDate($investment->maturity_date) }}</td>
-				                    <td>{{ moneyFormat($investmentVehicleReturn->amount_affected) }}</td>
+				                    <td>{{ $investmentVehicleReturn->affected_investments }}</td>
+				                    <td>{{ $investmentVehicleReturn->status=='ISSUED'?moneyFormat($investmentVehicleReturn->amount_affected):'' }}</td>
 				                    <td>{{ formatDate($investmentVehicleReturn->created_at) }}</td>
-				                    <td>{!! editButton(route('admin.investment-vehicle-returns.edit',$investmentVehicleReturns)) !!} {!! deleteButton(route('admin.investment-vehicle-returns.destroy',$investmentVehicleReturns),'Delete','delete-investment-vehicle-return') !!}</td>
+				                    <td>{!! $investmentVehicleReturn->status=='PENDING'? editButton(route('admin.investment-vehicle-returns.edit',[$investmentVehicle, $investmentVehicleReturn])):'' !!} {!! $investmentVehicleReturn->status=='PENDING'?deleteButton(route('admin.investment-vehicle-returns.destroy',[$investmentVehicle,$investmentVehicleReturn]),'Delete','delete-investment-vehicle-return'):'' !!}</td>
 				                </tr>
 						    @endforeach
 						@else

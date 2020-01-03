@@ -6,7 +6,7 @@ use Illuminate\Support\Facades\DB;
 
 use Carbon\Carbon;
 
-class InvestmentVehicleTableSeeder extends Seeder
+class InvestmentVehiclesTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -23,7 +23,7 @@ class InvestmentVehicleTableSeeder extends Seeder
 	            'term' => 'monthly',
 	            'waiting_period' => 1,
 	            'number_of_terms' => 12,
-                'created_at'=>Carbon::now()
+                'created_at'=>Carbon::now()->subMonths(10)
 	        ]);
     	}
     }

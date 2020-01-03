@@ -9,6 +9,8 @@ use App\InvestmentVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
+use Carbon\Carbon;
+
 class InvestmentVehicleReturnsController extends Controller
 {
     /**
@@ -31,9 +33,7 @@ class InvestmentVehicleReturnsController extends Controller
     public function create(InvestmentVehicle $investmentVehicle)
     {
         
-        $data['investors'] = User::where('role','investor')->get();
-        $data['investmentVehicles'] = InvestmentVehicle::where('status','active')->get();
-        return view('admin.investment-vehicle-returns.create',$data);
+        return view('admin.investment-vehicle-returns.create',['investmentVehicle'=>$investmentVehicle]);
     }
 
     /**
@@ -46,26 +46,25 @@ class InvestmentVehicleReturnsController extends Controller
     {
         $request->validate(
                 [
-                'user_id' => 'required|exists:users,id',
-                'investment_vehicle_id' => 'required|exists:investment_vehicles,id',
-                'amount' => 'numeric|min:0',
-                'status' => 'required|in:PENDING,PROCESSING,APPROVED,DECLINED',
+                'title' => 'required|min:5|max:50',
+                'date_to_issue' => 'required|date|date_format:m/d/Y|after:yesterday',
+                'percent_return' => 'numeric|min:0|max:100',
+                'status' => 'required|in:PENDING,ISSUED',
                 'admin_notes' => 'nullable',
-                'investor_notes' => "nullable",
             ],
             $this->customValidationMessages(), 
             $this->fieldNames()
         );
-        $investment = new Investment;
-        $investment->user_id = $request->user_id;
-        $investment->investment_vehicle_id = $request->investment_vehicle_id;
-        $investment->amount = $request->amount;
-        $investment->admin_notes = $request->admin_notes;
-        $investment->status = $request->status;
-        $investment->investor_notes = $request->investor_notes;
+        $investmentVehicleReturn = new InvestmentVehicleReturn;
+        $investmentVehicleReturn->title = $request->title;
+        $investmentVehicleReturn->date_to_issue = Carbon::createFromFormat('m/d/Y',$request->date_to_issue);
+        $investmentVehicleReturn->status = $request->status;
+        $investmentVehicleReturn->admin_notes = $request->admin_notes;
+        $investmentVehicleReturn->percent_return = $request->percent_return;
+        $investmentVehicleReturn->investment_vehicle_id =$investmentVehicle->id;
 
-        $investment->save();
-        return redirect()->route('admin.investment-vehicle-returns.create')->withSuccess('Investment has been created successfully');
+        $investmentVehicleReturn->save();
+        return redirect()->route('admin.investment-vehicle-returns.create',$investmentVehicle)->withSuccess('Investment Vehicle Return has been created successfully');
     }
 
     
@@ -78,9 +77,10 @@ class InvestmentVehicleReturnsController extends Controller
      */
     public function edit(InvestmentVehicle $investmentVehicle, InvestmentVehicleReturn $investmentVehicleReturn)
     {
-        $data['investment'] = $investment;
-        $data['investors'] = User::where('role','investor')->get();
-        $data['investmentVehicles'] = InvestmentVehicle::where('status','active')->get();
+        if($investmentVehicle->id!=$investmentVehicleReturn->investment_vehicle_id) return redirect()->back()->withError('Requested resource was not found');
+
+        $data['investmentVehicle'] = $investmentVehicle;
+        $data['investmentVehicleReturn'] = $investmentVehicleReturn;
         return view('admin.investment-vehicle-returns.edit', $data);
     }
 
@@ -93,29 +93,30 @@ class InvestmentVehicleReturnsController extends Controller
      */
     public function update(Request $request,InvestmentVehicle $investmentVehicle, InvestmentVehicleReturn $investmentVehicleReturn)
     {
+        if($investmentVehicle->id!=$investmentVehicleReturn->investment_vehicle_id) return redirect()->back()->withError('Requested resource was not found');
+
         $request->validate(
                 [
-                'user_id' => 'required|exists:users,id',
-                'investment_vehicle_id' => 'required|exists:investment_vehicles,id',
-                'amount' => 'numeric|min:0',
-                'status' => 'required|in:PENDING,PROCESSING,APPROVED,DECLINED',
+                'title' => 'required|min:5|max:50',
+                'date_to_issue' => 'required|date|date_format:m/d/Y|after:yesterday',
+                'percent_return' => 'numeric|min:0|max:100',
+                'status' => 'required|in:PENDING,ISSUED',
                 'admin_notes' => 'nullable',
-                'investor_notes' => "nullable",
             ],
             $this->customValidationMessages(), 
             $this->fieldNames()
         );
         
-        $investment->user_id = $request->user_id;
-        $investment->investment_vehicle_id = $request->investment_vehicle_id;
-        $investment->amount = $request->amount;
-        $investment->admin_notes = $request->admin_notes;
-        $investment->status = $request->status;
-        $investment->investor_notes = $request->investor_notes;
+        $investmentVehicleReturn->title = $request->title;
+        $investmentVehicleReturn->date_to_issue = Carbon::createFromFormat('m/d/Y',$request->date_to_issue);
+        $investmentVehicleReturn->status = $request->status;
+        $investmentVehicleReturn->admin_notes = $request->admin_notes;
+        $investmentVehicleReturn->percent_return = $request->percent_return;
+        $investmentVehicleReturn->investment_vehicle_id =$investmentVehicle->id;
 
-        $investment->save();
+        $investmentVehicleReturn->save();
 
-        return redirect()->route('admin.investment-vehicle-returns.edit',$investment)->withSuccess('Investment has been updated successfully');
+        return redirect()->route('admin.investment-vehicle-returns.edit',[$investmentVehicle,$investmentVehicleReturn])->withSuccess('Investment Vehicle Return has been updated successfully');
     }
 
     /**
@@ -126,7 +127,9 @@ class InvestmentVehicleReturnsController extends Controller
      */
     public function destroy(InvestmentVehicle $investmentVehicle, InvestmentVehicleReturn $investmentVehicleReturn)
     {
-        return redirect()->route('admin.investments.index')->withError('Currently deleting investment is disabled');
+        if($investmentVehicle->id!=$investmentVehicleReturn->investment_vehicle_id) return redirect()->back()->withError('Requested resource was not found');
+
+        return redirect()->route('admin.investment-vehicle-returns.index',$investmentVehicle)->withError('Currently deleting Investment Vehicle Return is disabled');
     }
 
     public function fieldNames()

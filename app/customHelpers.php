@@ -77,7 +77,7 @@ function get_fundmanagers($regionalFundManagerID=0){
 
 function editButton($link="#",$text="Edit",$buttonClasses="",$iconClasses = "lnr-pencil")
 {
-	return '<a href="'.$link.'"><button class="btn-icon btn btn-primary btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
+	return '<a href="'.$link.'"><button type="button" class="btn-icon btn btn-primary btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
 }
 
 function deleteButton($link="#",$text="Delete",$buttonClasses="",$iconClasses = "lnr-trash")
@@ -85,16 +85,31 @@ function deleteButton($link="#",$text="Delete",$buttonClasses="",$iconClasses = 
 	return '<form class="delete-form" method="POST" action="'.$link.'"> '.csrf_field().method_field('DELETE').'<button type="submit" class="btn-icon btn btn-danger btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button> </form>';
 }
 
-function formatDate($d,$format = 'm - d -Y'){
+function formatDate($d,$format = 'm - d - Y'){
+	$d = Carbon\Carbon::parse($d);
 	return $d->format($format);
 }
 
-function formatDateTime($d,$format = 'm - d -Y h:i:s A'){
+function formatDateTime($d,$format = 'm - d - Y h:i:s A'){
+	return $d->format($format);
+}
+
+function mysqlDateTime($d,$format = 'Y-m-d H:i:s'){
 	return $d->format($format);
 }
 
 function moneyFormat($amount=0){
 	return number_format($amount,2);
+}
+
+function percent_return($earning){
+
+	$invested_amount = $earning->investment->amount;
+	$earned_amount = $earning->amount;
+
+	if($invested_amount==0) return number_format(0,2);
+	
+	return ($earned_amount*100)/$invested_amount;
 }
 
 // function currentDate(){

@@ -2,6 +2,7 @@
 
 use Illuminate\Foundation\Inspiring;
 
+use App\InvestmentVehicleReturn;
 /*
 |--------------------------------------------------------------------------
 | Console Routes
@@ -16,3 +17,8 @@ use Illuminate\Foundation\Inspiring;
 Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->describe('Display an inspiring quote');
+
+
+Artisan::command('issueEarnings', function () {
+    InvestmentVehicleReturn::issue_return_earnings();
+})->describe('Issue investment earnings');

@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Carbon\Carbon;
-class InvestmentTableSeeder extends Seeder
+class InvestmentsTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -18,7 +18,7 @@ class InvestmentTableSeeder extends Seeder
 	            'user_id' => App\User::where('role','investor')->get()->random()->id,
 	            'investment_vehicle_id' => App\InvestmentVehicle::where('status','active')->get()->random()->id,
 	            'status' => $i%3?'PENDING':'APPROVED',
-                'created_at'=>Carbon::now()
+                'created_at'=>Carbon::now()->subMonths(rand(1,10))
 	        ]);
     	}
     }

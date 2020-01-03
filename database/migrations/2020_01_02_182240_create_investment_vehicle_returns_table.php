@@ -17,11 +17,11 @@ class CreateInvestmentVehicleReturnsTable extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('investment_vehicle_id');
             $table->string('title');
-            $table->text('description')->nullable();
-            $table->decimal('percent_roi', 5, 2);
-            $table->enum('status',['PENDING', 'ISSUED', 'UNISSUED'])->default('PENDING');
+            $table->decimal('percent_return', 5, 2);
+            $table->enum('status',['PENDING', 'ISSUED'])->default('PENDING');
             $table->dateTime('date_to_issue');
-            $table->dateTime('date_issued');
+            $table->dateTime('date_issued')->nullable();
+            $table->text('admin_notes')->nullable();
             $table->timestamps();
             $table->foreign('investment_vehicle_id')->references('id')->on('investment_vehicles');
         });

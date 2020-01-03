@@ -60,28 +60,36 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     	Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
     });
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
-    	Route::get('/', 'InvestmentVehicleController@index')->name('index');
-    	Route::get('/create', 'InvestmentVehicleController@create')->name('create');
-    	Route::post('/', 'InvestmentVehicleController@store')->name('store');
-    	Route::get('/{investmentVehicle}/edit', 'InvestmentVehicleController@edit')->name('edit');
-    	Route::put('/{investmentVehicle}', 'InvestmentVehicleController@update')->name('update');
-    	Route::delete('/{investmentVehicle}', 'InvestmentVehicleController@destroy')->name('destroy');
+    	Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+    	Route::get('/create', 'InvestmentVehiclesController@create')->name('create');
+    	Route::post('/', 'InvestmentVehiclesController@store')->name('store');
+    	Route::get('/{investmentVehicle}/edit', 'InvestmentVehiclesController@edit')->name('edit');
+    	Route::put('/{investmentVehicle}', 'InvestmentVehiclesController@update')->name('update');
+    	Route::delete('/{investmentVehicle}', 'InvestmentVehiclesController@destroy')->name('destroy');
     });
     Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
         Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
         Route::get('/{investmentVehicle}/create', 'InvestmentVehicleReturnsController@create')->name('create');
         Route::post('/{investmentVehicle}/', 'InvestmentVehicleReturnsController@store')->name('store');
-        Route::get('/{investmentVehicle}/{investment}/edit', 'InvestmentVehicleReturnsController@edit')->name('edit');
-        Route::put('/{investmentVehicle}/{investment}', 'InvestmentVehicleReturnsController@update')->name('update');
-        Route::delete('/{investmentVehicle}/{investment}', 'InvestmentVehicleReturnsController@destroy')->name('destroy');
+        Route::get('/{investmentVehicle}/{investmentVehicleReturn}/edit', 'InvestmentVehicleReturnsController@edit')->name('edit');
+        Route::put('/{investmentVehicle}/{investmentVehicleReturn}', 'InvestmentVehicleReturnsController@update')->name('update');
+        Route::delete('/{investmentVehicle}/{investmentVehicleReturn}', 'InvestmentVehicleReturnsController@destroy')->name('destroy');
     });
     Route::name('investments.')->prefix('investments')->group(function(){
-        Route::get('/', 'InvestmentController@index')->name('index');
-        Route::get('/create', 'InvestmentController@create')->name('create');
-        Route::post('/', 'InvestmentController@store')->name('store');
-        Route::get('/{investment}/edit', 'InvestmentController@edit')->name('edit');
-        Route::put('/{investment}', 'InvestmentController@update')->name('update');
-        Route::delete('/{investment}', 'InvestmentController@destroy')->name('destroy');
+        Route::get('/', 'InvestmentsController@index')->name('index');
+        Route::get('/create', 'InvestmentsController@create')->name('create');
+        Route::post('/', 'InvestmentsController@store')->name('store');
+        Route::get('/{investment}/edit', 'InvestmentsController@edit')->name('edit');
+        Route::put('/{investment}', 'InvestmentsController@update')->name('update');
+        Route::delete('/{investment}', 'InvestmentsController@destroy')->name('destroy');
+    });
+    Route::name('earnings.')->prefix('earnings')->group(function(){
+        Route::get('/', 'EarningsController@index')->name('index');
+        //Route::get('/create', 'EarningsController@create')->name('create');
+        //Route::post('/', 'EarningsController@store')->name('store');
+        Route::get('/{earning}/edit', 'EarningsController@edit')->name('edit');
+        Route::put('/{earning}', 'EarningsController@update')->name('update');
+        Route::delete('/{earning}', 'EarningsController@destroy')->name('destroy');
     });
 });
 

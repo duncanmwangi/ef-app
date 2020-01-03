@@ -7,7 +7,7 @@ use App\InvestmentVehicle;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 
-class InvestmentVehicleController extends Controller
+class InvestmentVehiclesController extends Controller
 {
     /**
      * Display a listing of the resource.

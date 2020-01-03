@@ -24,4 +24,31 @@ class Investment extends Model
     {
         return $this->created_at->addMonths($this->investmentVehicle->waiting_period);
     }
+    
+    public function earnings()
+    {
+        return $this->hasMany('App\Earning','investment_id');
+    }
+
+    public function issue_earnings($investmentVehicleReturn)
+    {
+        //check if already awarded for this return id
+        $found = $this->earnings()->where('investment_vehicle_return_id',$investmentVehicleReturn->id)->get()->isNotEmpty();
+        
+        if($found) return;
+        
+        //add earnings to db
+        $earning = new Earning([
+                    'investment_vehicle_return_id' => $investmentVehicleReturn->id,
+                    'amount' => $this->amount*($investmentVehicleReturn->percent_return/100),
+                    'status' => 'APPROVED',
+                    'date_issued' =>  Carbon::now(),
+                    'date_approved' => Carbon::now(),
+                ]);
+
+        $this->earnings()->save($earning);
+
+
+        //print_r($investmentVehicleReturn);
+    }
 }
