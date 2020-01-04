@@ -48,6 +48,12 @@ class Investment extends Model
 
         $this->earnings()->save($earning);
 
+        
+        echo "\n\r INVESTMENT:\n\r";
+        print_r($this);
+        echo "\n\r EARNING:\n\r";
+        print_r($earning);
+
 
         //print_r($investmentVehicleReturn);
     }
