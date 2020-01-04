@@ -44,7 +44,7 @@
 				                    <td>{{ $investmentVehicleReturn->id }}</td>
 				                    <td>{{ $investmentVehicleReturn->title }}</td>
 				                    <td>{{ $investmentVehicleReturn->percent_return }}</td>
-				                    <td>{{ $investmentVehicleReturn->date_to_issue }}</td>
+				                    <td>{{ formatDate($investmentVehicleReturn->date_to_issue) }}</td>
 				                    <td>{{ $investmentVehicleReturn->status }}</td>
 				                    <td>{{ $investmentVehicleReturn->affected_investments }}</td>
 				                    <td>{{ $investmentVehicleReturn->status=='ISSUED'?moneyFormat($investmentVehicleReturn->amount_affected):'' }}</td>

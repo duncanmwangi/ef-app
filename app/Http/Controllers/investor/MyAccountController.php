@@ -5,7 +5,7 @@ namespace App\Http\Controllers\investor;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DashboardController extends Controller
+class MyAccountController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('investor.dashboard.index');
+        //
     }
+
 }

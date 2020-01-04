@@ -101,6 +101,19 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 });
 
+
 Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(['auth','checkRole:investor'])->group(function () {
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+        Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+    });
+    Route::name('investments.')->prefix('investments')->group(function(){
+        Route::get('/', 'InvestmentsController@index')->name('index');
+    });
+    Route::name('earnings.')->prefix('earnings')->group(function(){
+        Route::get('/', 'EarningsController@index')->name('index');
+    });
+    Route::name('my-account.')->prefix('my-account')->group(function(){
+        Route::get('/', 'MyAccountController@index')->name('index');
+    });
 });

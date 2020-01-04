@@ -114,9 +114,12 @@ class User extends Authenticatable
 
     public function investments()
     {
-        if($this->isInvestor()) return [];
-
         return $this->hasMany('App\Investment','user_id');
+    }
+    
+    public function earnings()
+    {
+        return $this->hasManyThrough('App\Earning','App\Investment');
     }
 
 

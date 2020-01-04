@@ -4,8 +4,9 @@ namespace App\Http\Controllers\investor;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Investment;
 
-class DashboardController extends Controller
+class InvestmentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,6 +15,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('investor.dashboard.index');
+        $investments = auth()->user()->investments()->latest()->paginate(env('ITEMS_PER_PAGE'));
+
+        return view('investor.investments.index',['investments'=>$investments]);
     }
+
 }
