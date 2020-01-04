@@ -27,7 +27,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
-        $schedule->command('issueEarnings')->everyMinute()->sendOutputTo('/home/abby/code/ef-app/cronjob.log');
+        $schedule->command('issueEarnings')->everyMinute()->sendOutputTo('./cronjob.log');
     }
 
     /**
