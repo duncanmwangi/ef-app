@@ -1,7 +1,7 @@
 /node_modules
 /public/hot
 /public/storage
-/public/.htaccess3
+/public/.htaccess
 /storage/*.key
 /vendor
 .env
