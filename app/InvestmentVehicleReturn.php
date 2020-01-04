@@ -17,7 +17,7 @@ class InvestmentVehicleReturn extends Model
 
     public static function issue_return_earnings()
     {
-    	echo "==========cron has started============\n\r";
+    	echo "\n\r\n\r\n\r\n\r\n\r==========cron has started at: ".formatDateTime(Carbon::now())." ============\n\r";
     	$investmentVehicleReturns = InvestmentVehicleReturn::where('status','PENDING')->where('date_to_issue','<','now()')->get();
     	foreach ($investmentVehicleReturns as $investmentVehicleReturn) { 
     		if($investmentVehicleReturn->investmentVehicle->mature_investments->count()){
@@ -27,7 +27,7 @@ class InvestmentVehicleReturn extends Model
     		}
             $investmentVehicleReturn->mark_return_as_issued();
     	}
-    	echo "==========cron has finished============\n\r";
+    	echo "==========cron has finished at: ".formatDateTime(Carbon::now())." ============\n\r";
     }
     public function mark_return_as_issued()
     {
