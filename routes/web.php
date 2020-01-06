@@ -48,7 +48,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','checkRole:admin'])->group(function () {
 
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
 
     Route::name('users.')->prefix('users')->group(function(){
     	Route::get('/', 'UsersController@index')->name('index');
@@ -103,7 +103,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
 
 
 Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(['auth','checkRole:investor'])->group(function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
     });
