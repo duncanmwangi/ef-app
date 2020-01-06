@@ -5,6 +5,7 @@
 /storage/*.key
 /vendor
 .env
+error_log
 .env.backup
 cronjob.log
 .phpunit.result.cache
