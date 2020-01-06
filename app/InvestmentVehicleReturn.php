@@ -38,12 +38,21 @@ class InvestmentVehicleReturn extends Model
 
     public function getAffectedInvestmentsAttribute()
     {
-    	if($this->status=='PENDING'){
-    		return $this->investmentVehicle->mature_investments->count();
-    	}elseif($this->status=='ISSUED'){
-    		//return $this->earnings->count();
-    	}
-    	return 0;
+        if($this->status=='PENDING'){
+            return $this->investmentVehicle->mature_investments->count();
+        }elseif($this->status=='ISSUED'){
+            return $this->earnings->count();
+        }
+        return 0;
+    }
+    public function getAffectedAmountAttribute()
+    {
+        if($this->status=='PENDING'){
+            return $this->investmentVehicle->mature_investments->sum('amount')*$this->percent_return/100;
+        }elseif($this->status=='ISSUED'){
+            return $this->earnings->sum('amount');
+        }
+        return 0;
     }
 
 

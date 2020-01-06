@@ -41,7 +41,7 @@
 				                    <td>{{ $user->name }}</td>
 				                    <td>{{ $user->email }}</td>
 				                    <td>{{ $user->phone }}</td>
-				                    <td>{{ $user->role_name }}</td>
+				                    <td>{!! badge($user->role_name,$user->role=='admin'?'danger':($user->role=='regional-fund-manager'?'warning':($user->role=='fund-manager'?'info':'success'))) !!}</td>
 				                    <td>{!! editButton(route('admin.users.edit',$user->id)) !!} {!! deleteButton(route('admin.users.destroy',$user->id),'Delete','delete-user') !!}</td>
 				                </tr>
 						    @endforeach

@@ -27,6 +27,7 @@
 		                    <th>Waiting Period</th>
 		                    <th>Terms</th>
 		                    <th>No of earning terms</th>
+		                    <th>Status</th>
 		                    <th>Date Created</th>
 		                </tr>
 	                </thead>
@@ -41,7 +42,7 @@
 				                    <td>{{ $investmentVehicle->title }}</td>
 				                    <td>{{ $investmentVehicle->waiting_period }}</td>
 				                    <td>{{ ucwords($investmentVehicle->term) }}</td>
-				                    <td>{{ $investmentVehicle->number_of_terms }}</td>
+				                    <td>{{ $investmentVehicle->number_of_terms }}</td><td>{!! badge($investmentVehicle->status,$investmentVehicle->status=='active'?'success':'danger') !!}</td>
 				                    <td>{{ formatDate($investmentVehicle->created_at) }}</td>
 				                </tr>
 						    @endforeach

@@ -45,8 +45,8 @@
 				                    <td>{{ $investment->investor->id }}</td>
 				                    <td>{{ $investment->investor->name }}</td>
 				                    <td>{{ $investment->investmentVehicle->title }}</td>
-				                    <td>{{ $investment->status }}</td>
-				                    <td>{{ $investment->maturity_status }}</td>
+				                    <td>{!! badge($investment->status,$investment->status=='PENDING'?'warning':($investment->status=='PROCESSING'?'info':($investment->status=='APPROVED'?'success':'danger'))) !!}</td>
+				                    <td>{!! badge($investment->maturity_status, $investment->maturity_status=='MATURE'?'success':'warning') !!}</td>
 				                    <td>{{ formatDate($investment->maturity_date) }}</td>
 				                    <td>{{ moneyFormat($investment->amount) }}</td>
 				                    <td>{{ formatDate($investment->created_at) }}</td>

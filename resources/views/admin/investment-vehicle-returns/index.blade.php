@@ -45,9 +45,9 @@
 				                    <td>{{ $investmentVehicleReturn->title }}</td>
 				                    <td>{{ $investmentVehicleReturn->percent_return }}</td>
 				                    <td>{{ formatDate($investmentVehicleReturn->date_to_issue) }}</td>
-				                    <td>{{ $investmentVehicleReturn->status }}</td>
+				                    <td>{!! badge($investmentVehicleReturn->status,$investmentVehicleReturn->status=='PENDING'?'warning':'success') !!}</td>
 				                    <td>{{ $investmentVehicleReturn->affected_investments }}</td>
-				                    <td>{{ $investmentVehicleReturn->status=='ISSUED'?moneyFormat($investmentVehicleReturn->amount_affected):'' }}</td>
+				                    <td>{{ $investmentVehicleReturn->status=='ISSUED'?moneyFormat($investmentVehicleReturn->affected_amount):'' }}</td>
 				                    <td>{{ formatDate($investmentVehicleReturn->created_at) }}</td>
 				                    <td>{!! $investmentVehicleReturn->status=='PENDING'? editButton(route('admin.investment-vehicle-returns.edit',[$investmentVehicle, $investmentVehicleReturn])):'' !!} {!! $investmentVehicleReturn->status=='PENDING'?deleteButton(route('admin.investment-vehicle-returns.destroy',[$investmentVehicle,$investmentVehicleReturn]),'Delete','delete-investment-vehicle-return'):'' !!}</td>
 				                </tr>

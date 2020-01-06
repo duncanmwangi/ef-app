@@ -43,7 +43,7 @@
 				                    <td>{{ $earning->investment->id }}</td>
 				                    <td>{{ $earning->investment->investmentVehicle->title }}</td>
 				                    <td>{{ moneyFormat($earning->investment->amount) }}</td>
-				                    <td>{{ $earning->status }}</td>
+				                    <td>{!! badge($earning->status,$earning->status=='ISSUED'?'info':($earning->status=='APPROVED'?'success':'danger')) !!}</td>
 				                    <td>{{ formatDate($earning->date_issued) }}</td>
 				                    <td>{{ percent_return($earning) }}%</td>
 				                    <td>{{ moneyFormat($earning->amount) }}</td>

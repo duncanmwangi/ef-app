@@ -75,6 +75,10 @@ function get_fundmanagers($regionalFundManagerID=0){
 	return $rfm->fundManagers;
 }
 
+function badge($text="badge",$cssClasses="primary"){
+	return '<div class="my-1 mx-1 badge badge-'.$cssClasses.'">'.$text.'</div>';
+}
+
 function editButton($link="#",$text="Edit",$buttonClasses="",$iconClasses = "lnr-pencil")
 {
 	return '<a href="'.$link.'"><button type="button" class="btn-icon btn btn-primary btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
@@ -110,6 +114,16 @@ function percent_return($earning){
 	if($invested_amount==0) return number_format(0,2);
 	
 	return ($earned_amount*100)/$invested_amount;
+}
+
+function sort_by($filterArray=[],$key='')
+{
+
+	$filterArray['sort'] = isset($filterArray['sort']) && $filterArray['sort']==$key?'-'.$key:$key;
+	if($filterArray['sort']=='waiting_period'){
+		//dd($filterArray);
+	}
+	return $filterArray;
 }
 
 // function currentDate(){
