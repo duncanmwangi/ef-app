@@ -12,7 +12,7 @@ class InvestmentsTableSeeder extends Seeder
     public function run()
     {
     	
-        for($i = 1; $i<=15; $i++){
+        for($i = 1; $i<=150; $i++){
 	        DB::table('investments')->insert([
 	            'amount' => rand(1,99)*1000,
 	            'user_id' => App\User::where('role','investor')->get()->random()->id,

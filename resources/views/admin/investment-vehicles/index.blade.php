@@ -18,7 +18,7 @@
 	        </div>
 	        <div class="card-body px-2 py-0">
 				<form action="" method="get">
-		        	<div class="form-row">
+		        	<div class="form-row mt-3 pt-3 px-2">
 	                    <div class="col-md-4">
 	                        <div class="position-relative form-group">
 	                            <label for="title" class="">Title</label>
@@ -51,7 +51,7 @@
 	                    </div>
 	                </div>
 
-		        	<div class="form-row">
+		        	<div class="form-row px-2">
 	                    <div class="col-md-4">
 	                        <div class="position-relative form-group">
 	                            <label for="waiting_period" class="">Waiting Period</label>
@@ -106,7 +106,7 @@
 	                    </div>
 	                </div>
 
-		        	<div class="form-row mb-3">
+		        	<div class="form-row mb-3 px-2">
 	                    <div class="col-md-4">
 	                        <div class="position-relative form-group">
 	                            <label for="termType" class="">Status</label>
@@ -129,6 +129,8 @@
 	                    </div>
 	                </div>
 				</form>
+				<hr>
+				<h4 class="my-2">Investment Vehicles</h4>
 	        	<table class="mb-0 table table-striped table-hover">
 	                <thead>
 		                <tr>
