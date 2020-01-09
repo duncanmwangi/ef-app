@@ -13,7 +13,7 @@ class UsersTableSeeder extends Seeder
      */
     public function run(Faker $faker)
     {
-        DB::table('users')->insert([
+        $admin_id = DB::table('users')->insertGetId([
             'firstName' => 'Duncan',
             'lastName' => 'Administrator',
             'phone' => '0720455419',
@@ -27,7 +27,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('admin@ef.com'),
         ]);
 
-        DB::table('users')->insert([
+        $rfm_id = DB::table('users')->insertGetId([
             'firstName' => 'Duncan',
             'lastName' => 'RFM',
             'phone' => '0720455419',
@@ -41,7 +41,7 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('rfm@ef.com'),
         ]);
 
-        DB::table('users')->insert([
+        $fm_id = DB::table('users')->insertGetId([
             'firstName' => 'Duncan',
             'lastName' => 'FM',
             'phone' => '0720455419',
@@ -53,10 +53,11 @@ class UsersTableSeeder extends Seeder
             'role' => 'fund-manager',
             'email' => 'fm@ef.com',
             'password' => bcrypt('fm@ef.com'),
+            'user_id' => $rfm_id
         ]);
 
 
-        DB::table('users')->insert([
+        $investor_id = DB::table('users')->insertGetId([
             'firstName' => 'Duncan',
             'lastName' => 'Investor',
             'phone' => '0720455419',
@@ -68,42 +69,12 @@ class UsersTableSeeder extends Seeder
             'role' => 'investor',
             'email' => 'investor@ef.com',
             'password' => bcrypt('investor@ef.com'),
+            'user_id' => $fm_id
         ]);
 
-        for($i = 1; $i<=20; $i++){
-            DB::table('users')->insert([
-                'firstName' => $faker->firstName,
-                'lastName' => $faker->lastName,
-                'phone' => $faker->e164PhoneNumber,
-                'street1' => $faker->streetAddress,
-                'city' => $faker->city,
-                'state' => $faker->stateAbbr,
-                'zip' => $faker->postcode,
-                'country' => 'US',
-                'role' => 'investor',
-                'email' => $faker->unique()->safeEmail,
-                'password' => bcrypt(Str::random(10)),
-            ]);
-        }
 
-        for($i = 1; $i<=20; $i++){
-            DB::table('users')->insert([
-                'firstName' => $faker->firstName,
-                'lastName' => $faker->lastName,
-                'phone' => rand(10000000,999999999),
-                'street1' => $faker->streetAddress,
-                'city' => $faker->city,
-                'state' => $faker->stateAbbr,
-                'zip' => $faker->postcode,
-                'country' => 'US',
-                'role' => 'fund-manager',
-                'email' => $faker->unique()->safeEmail,
-                'password' => bcrypt(Str::random(10)),
-            ]);
-        }
-
-        for($i = 1; $i<=20; $i++){
-            DB::table('users')->insert([
+        for($i = 1; $i<=5; $i++){
+            $rfm_id = DB::table('users')->insertGetId([
                 'firstName' => $faker->firstName,
                 'lastName' => $faker->lastName,
                 'phone' => rand(10000000,999999999),
@@ -116,6 +87,40 @@ class UsersTableSeeder extends Seeder
                 'email' => $faker->unique()->safeEmail,
                 'password' => bcrypt(Str::random(10)),
             ]);
+            for($j = 1; $j<=5; $j++){
+                $fm_id = DB::table('users')->insertGetId([
+                    'firstName' => $faker->firstName,
+                    'lastName' => $faker->lastName,
+                    'phone' => rand(10000000,999999999),
+                    'street1' => $faker->streetAddress,
+                    'city' => $faker->city,
+                    'state' => $faker->stateAbbr,
+                    'zip' => $faker->postcode,
+                    'country' => 'US',
+                    'role' => 'fund-manager',
+                    'email' => $faker->unique()->safeEmail,
+                    'password' => bcrypt(Str::random(10)),
+                    'user_id' => $rfm_id
+                ]);
+
+                for($k = 1; $k<=10; $k++){
+                    $id = DB::table('users')->insertGetId([
+                        'firstName' => $faker->firstName,
+                        'lastName' => $faker->lastName,
+                        'phone' => $faker->e164PhoneNumber,
+                        'street1' => $faker->streetAddress,
+                        'city' => $faker->city,
+                        'state' => $faker->stateAbbr,
+                        'zip' => $faker->postcode,
+                        'country' => 'US',
+                        'role' => 'investor',
+                        'email' => $faker->unique()->safeEmail,
+                        'password' => bcrypt(Str::random(10)),
+                        'user_id' => $fm_id
+                    ]);
+                }
+            }
+
         }
     }
 }

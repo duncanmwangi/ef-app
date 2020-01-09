@@ -8,7 +8,7 @@
 
 
 
-<div class="col-md-9">
+<div class="col-md-12">
 
 @include('common.errors')
 
@@ -17,7 +17,8 @@
 	            Investment Vehicles
 	        </div>
 	        <div class="card-body px-2 py-0">
-				<form action="" method="get">
+				<form action="{{ route('admin.investment-vehicles.search')}}" method="post">
+					@csrf
 		        	<div class="form-row mt-3 pt-3 px-2">
 	                    <div class="col-md-4">
 	                        <div class="position-relative form-group">
@@ -135,13 +136,13 @@
 	                <thead>
 		                <tr>
 		                    <th>#</th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'id'))}}">ID</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'title'))}}">Title</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'waiting_period'))}}">Waiting Period</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'term'))}}">Terms</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of earning terms</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'status'))}}">Status</a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'created_at'))}}">Date Created</a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'title'))}}">Title <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'waiting_period'))}}">Waiting Period <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'term'))}}">Terms <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of earning terms <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'status'))}}">Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th>Actions</th>
 		                </tr>
 	                </thead>

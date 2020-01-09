@@ -12,11 +12,7 @@
 */
 
 Route::get('test',function(){
-	dd(
-		App\InvestmentVehicle::where('status','active')
-		->get()
-		->random()
-	);
+	return view('welcome',['date'=>formatDate('2020-01-05')]);
 });
 
 Auth::routes();
@@ -60,7 +56,8 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     	Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
     });
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
-    	Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+        Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+    	Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
     	Route::get('/create', 'InvestmentVehiclesController@create')->name('create');
     	Route::post('/', 'InvestmentVehiclesController@store')->name('store');
     	Route::get('/{investmentVehicle}/edit', 'InvestmentVehiclesController@edit')->name('edit');

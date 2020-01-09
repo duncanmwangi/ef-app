@@ -61,40 +61,57 @@
             .m-b-md {
                 margin-bottom: 30px;
             }
+            td{
+                color:#000;
+            }
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
-            <div class="content">
-                <div class="title m-b-md">
-                    Laravel
-                </div>
-
-                <div class="links">
-                    <a href="https://laravel.com/docs">Docs</a>
-                    <a href="https://laracasts.com">Laracasts</a>
-                    <a href="https://laravel-news.com">News</a>
-                    <a href="https://blog.laravel.com">Blog</a>
-                    <a href="https://nova.laravel.com">Nova</a>
-                    <a href="https://forge.laravel.com">Forge</a>
-                    <a href="https://vapor.laravel.com">Vapor</a>
-                    <a href="https://github.com/laravel/laravel">GitHub</a>
-                </div>
-            </div>
-        </div>
+            <table class="table striped" cellspacing="0" cellpadding="2" style="margin: 30px">
+                <tr>
+                    <td>
+                        <table class="table striped" border="1" cellspacing="0" cellpadding="1">
+                            <tr>
+                                <th>Week</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                            </tr>
+                            @php $amount = 200; $total=0; $date = \Carbon\Carbon::parse('2020-01-05') @endphp
+                            @for($i=1; $i<=26; $i++)
+                                @php $amount = 200*$i; $total+=$amount; @endphp
+                                <tr>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $date->format('d - m - Y') }}</td>
+                                    <td align="right">{{ number_format($amount) }}</td>
+                                    <td align="right">{{ number_format($total) }}</td>
+                                    @php $date->addDays(7); @endphp
+                                </tr>
+                            @endfor
+                        </table>
+                    </td>
+                    <td>
+                        <table class="table striped" border="1" cellspacing="0">
+                            <tr>
+                                <th>Week</th>
+                                <th>Date</th>
+                                <th>Amount</th>
+                                <th>Total</th>
+                            </tr>
+                            @for($i=27; $i<=52; $i++)
+                                @php $amount = 200*$i; $total+=$amount; @endphp
+                                <tr>
+                                    <td>{{ $i }}</td>
+                                    <td>{{ $date->format('d - m - Y') }}</td>
+                                    <td align="right">{{ number_format($amount) }}</td>
+                                    <td align="right">{{ number_format($total) }}</td>
+                                    @php $date->addDays(7); @endphp
+                                </tr>
+                            @endfor
+                        </table>
+                    </td>
+                </tr>
+            </table>
+            
     </body>
 </html>

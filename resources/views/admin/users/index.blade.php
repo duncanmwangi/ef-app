@@ -22,11 +22,12 @@
 	                <thead>
 		                <tr>
 		                    <th>#</th>
-		                    <th>ID</th>
-		                    <th>First Name</th>
-		                    <th>Email Address</th>
-		                    <th>Phone</th>
-		                    <th>Role</th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'name'))}}">Name <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'email'))}}">Email Address <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'phone'))}}">Phone <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'role'))}}">Role <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.users.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th>Actions</th>
 		                </tr>
 	                </thead>
@@ -42,12 +43,13 @@
 				                    <td>{{ $user->email }}</td>
 				                    <td>{{ $user->phone }}</td>
 				                    <td>{!! badge($user->role_name,$user->role=='admin'?'danger':($user->role=='regional-fund-manager'?'warning':($user->role=='fund-manager'?'info':'success'))) !!}</td>
+				                    <td>{{ formatDate($user->created_at) }}</td>
 				                    <td>{!! editButton(route('admin.users.edit',$user->id)) !!} {!! deleteButton(route('admin.users.destroy',$user->id),'Delete','delete-user') !!}</td>
 				                </tr>
 						    @endforeach
 						@else
 							<tr>
-			                    <th scope="row" colspan="6">No records found</th>
+			                    <th scope="row" colspan="8">No records found</th>
 			                </tr>
 						@endif
 	                </tbody>
@@ -62,7 +64,7 @@
 
 	        </div>
 	        <div class="card-footer">
-	            {{ $users->links() }}
+	            {{ $users->appends($filterArray??[])->links() }}
 	        </div>
     </div>
 </div>
