@@ -43,7 +43,7 @@ class InvestmentVehiclesController extends Controller
 
 
         if ($validator->fails()) {
-            redirect('admin.investment-vehicles.index')->withErrors($validator);
+            return redirect('admin.investment-vehicles.index')->withErrors($validator);
         }else{
             $title = $request->input('title');
             $termType = $request->input('termType');
@@ -103,8 +103,65 @@ class InvestmentVehiclesController extends Controller
         $sort = !empty($sort) && in_array($sort, $sortable) ?$sort:'title';
 
         $filterArray['sort'] = $sort;
+        
 
-        $investmentVehicles = $investmentVehicles->orderBy(DB::raw($sort),'DESC')->paginate(env('ITEMS_PER_PAGE'));
+        $asc_desc = 'DESC';
+        if($sort=='id'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-id'){
+            $sort = 'id';
+        }
+        
+        
+        if($sort=='title'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-title'){
+            $sort = 'title';
+        }
+        
+        
+        if($sort=='id'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-id'){
+            $sort = 'id';
+        }
+        
+        
+        if($sort=='status'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-status'){
+            $sort = 'status';
+        }
+        
+        
+        if($sort=='waiting_period'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-waiting_period'){
+            $sort = 'waiting_period';
+        }
+        
+        
+        if($sort=='term'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-term'){
+            $sort = 'term';
+        }
+        
+        
+        if($sort=='created_at'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-created_at'){
+            $sort = 'created_at';
+        }
+        
+        
+        if($sort=='number_of_terms'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-number_of_terms'){
+            $sort = 'number_of_terms';
+        }
+
+        $investmentVehicles = $investmentVehicles->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
 
         $data['investmentVehicles'] = $investmentVehicles;
         $data['filterArray'] = $filterArray;

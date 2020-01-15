@@ -12,10 +12,10 @@ class InvestmentsTableSeeder extends Seeder
     public function run()
     {
     	
-        for($i = 1; $i<=150; $i++){
+        for($i = 1; $i<=250; $i++){
 	        DB::table('investments')->insert([
 	            'amount' => rand(1,99)*1000,
-	            'user_id' => App\User::where('role','investor')->get()->random()->id,
+	            'user_id' => $i%6==0?App\User::where('role','investor')->where('firstName','LIKE','%Duncan%')->first()->id:App\User::where('role','investor')->get()->random()->id,
 	            'investment_vehicle_id' => App\InvestmentVehicle::where('status','active')->get()->random()->id,
 	            'status' => $i%3?'PENDING':'APPROVED',
                 'created_at'=>Carbon::now()->subMonths(rand(1,10))

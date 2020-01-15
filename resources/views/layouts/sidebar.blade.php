@@ -4,8 +4,6 @@
         <div class="app-sidebar__inner">
             @if(auth()->user()->isAdmin())
                 @include('layouts.sidebar.adminMenu')
-            @elseif(auth()->user()->isRegionalFundManager())
-                @include('layouts.sidebar.regionalFundManagerMenu')
             @elseif(auth()->user()->isFundManager())
                 @include('layouts.sidebar.fundManagerMenu')
             @elseif(auth()->user()->isInvestor())

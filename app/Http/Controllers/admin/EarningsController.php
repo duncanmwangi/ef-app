@@ -20,7 +20,6 @@ class EarningsController extends Controller
      */
     public function index(Request $request)
     {
-        $earnings = Earning::latest()->paginate(env('ITEMS_PER_PAGE'));
         $filterArray = [];
 
         $validator = Validator::make($request->all(), [

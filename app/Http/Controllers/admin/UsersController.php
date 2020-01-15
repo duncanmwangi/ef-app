@@ -104,13 +104,47 @@ class UsersController extends Controller
 
         $filterArray['sort'] = $sort;
 
+        $asc_desc = 'DESC';
+        
+        if($sort=='id'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-id'){
+            $sort = 'id';
+        }
+        
         if($sort=='name'){
             $sort = 'firstName';
+            $asc_desc = 'ASC';
         }elseif($sort=='-name'){
-            $sort = '-firstName';
+            $sort = 'firstName';
         }
+        
+        if($sort=='email'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-email'){
+            $sort = 'email';
+        }
+        
+        if($sort=='role'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-role'){
+            $sort = 'role';
+        }
+        
+        if($sort=='phone'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-phone'){
+            $sort = 'phone';
+        }
+        
+        if($sort=='created_at'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-created_at'){
+            $sort = 'created_at';
+        }
+        
 
-        $users = $users->orderBy(DB::raw($sort),'DESC')->paginate(env('ITEMS_PER_PAGE'));
+        $users = $users->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
 
         $data['users'] = $users;
         $data['filterArray'] = $filterArray;

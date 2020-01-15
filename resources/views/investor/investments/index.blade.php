@@ -17,18 +17,132 @@
 	            My Investments
 	        </div>
 	        <div class="card-body px-2 py-0">
+				<form action="{{ route('investor.investments.search')}}" method="post">
+					@csrf
+		        	<div class="form-row mt-3 pt-3 px-2">
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="investment_vehicle" class="">Investment Vehicle</label>
+	                            <select id="investment_vehicle" name="investment_vehicle" class="form-control form-control-sm @error('investment_vehicle') is-invalid @enderror">
+		                            <option value="">Select Investment Vehicle</option>
+	                                @if($investmentVehicles)
+	                                    @foreach($investmentVehicles as $current_iv)
+	                                        @php 
+	                                        $selectedIV = old('investment_vehicle') ?? $filterArray['investment_vehicle'] ?? '';
+	                                        $selected = $current_iv->id==$selectedIV?'selected="selected"':''; 
+	                                        @endphp
+	                                        <option value="{{ $current_iv->id }}"  {{$selected}}>{{ $current_iv->title }}</option>
+	                                    @endforeach
+	                                @endif
+	                            </select>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="email" class="">Amount</label>
+	                            <div class="col-md-12 row p-0 m-0">
+	                            	<div class="col-md-4 px-0">
+										<select id="amount_operation" name="amount_operation" class="form-control form-control-sm @error('amount_operation') is-invalid @enderror">
+			                                @php 
+			                                $amount_operations = ['equal'=>'Equal To','less_than'=>'Less Than','less_than_or_equal'=>'Less Than Or Equal To','greater_than'=>'Greater Than','greater_than_or_equal_to'=>'Greater Than Or Equal To']; 
+			                                $selectedamount_operation = $filterArray['amount_operation'] ?? '';
+			                                @endphp
+			                                @foreach($amount_operations as $key => $value)
+			                                    @php $selected = $key==$selectedamount_operation ?'selected="selected"':''; @endphp
+			                                    <option value="{{ $key }}" {{$selected}}>{{ $value }}</option>
+			                                @endforeach
+			                            </select>
+	                            	</div>
+	                            	<div class="col-md-8 px-0">
+										<input name="amount" id="amount" placeholder="Amount" type="number" value="{{ $filterArray['amount'] ?? '' }}" class="form-control form-control-sm @error('amount') is-invalid @enderror">
+	                            	</div>
+	                            </div>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="date_created_from" created_toclass="">Date Created From</label>
+	                            <input name="date_created_from" id="date_created_from" placeholder="" type="text" value="{{ isset($filterArray['date_created_from']) ?formatDate($filterArray['date_created_from'] ,'m/d/Y'):'' }}" class="form-control form-control-sm datepicker @error('date_created_from') is-invalid @enderror" data-toggle="datepicker">
+	                        </div>
+	                    </div>
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="date_created_to" created_toclass="">Date Created To</label>
+	                            <input name="date_created_to" id="date_created_to" placeholder="" type="text" value="{{ isset($filterArray['date_created_to']) ?formatDate($filterArray['date_created_to'] ,'m/d/Y'):'' }}" class="form-control form-control-sm datepicker @error('date_created_to') is-invalid @enderror" data-toggle="datepicker">
+	                        </div>
+	                    </div>
 
+	                    
+	                </div>
+
+		        	<div class="form-row px-2">
+						<div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="investmentStatus" class="">Investment Status</label>
+	                            <select id="investmentStatus" name="investmentStatus" class="form-control form-control-sm @error('investmentStatus') is-invalid @enderror">
+	                                <option value="">Select investment status</option>
+	                                @php 
+	                                $statuses = ['PENDING', 'PROCESSING', 'APPROVED', 'DECLINED']; 
+	                                $selectedstatus = $filterArray['investmentStatus'] ?? '';
+	                                @endphp
+	                                @foreach($statuses as $current_status)
+	                                    @php $selected = $current_status==$selectedstatus ?'selected="selected"':''; @endphp
+	                                    <option value="{{ $current_status }}" {{$selected}}>{{ $current_status }}</option>
+	                                @endforeach
+	                            </select>
+	                        </div>
+	                    </div>
+						<div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="maturity_status" class="">Maturity Status</label>
+	                            <select id="maturity_status" name="maturity_status" class="form-control form-control-sm @error('maturity_status') is-invalid @enderror">
+	                                <option value="">Select maturity status</option>
+	                                @php 
+	                                $Mstatuses = ['MATURE', 'IMMATURE']; 
+	                                $selectedMstatus = $filterArray['maturity_status'] ?? '';
+	                                @endphp
+	                                @foreach($Mstatuses as $current_Mstatus)
+	                                    @php $selected = $current_Mstatus==$selectedMstatus ?'selected="selected"':''; @endphp
+	                                    <option value="{{ $current_Mstatus }}" {{$selected}}>{{ $current_Mstatus }}</option>
+	                                @endforeach
+	                            </select>
+	                        </div>
+	                    </div>
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="maturity_from" created_toclass="">Maturity Date From</label>
+	                            <input name="maturity_from" id="maturity_from" placeholder="" type="text" value="{{ isset($filterArray['maturity_from']) ?formatDate($filterArray['maturity_from'] ,'m/d/Y'):'' }}" class="form-control form-control-sm datepicker @error('maturity_from') is-invalid @enderror" data-toggle="datepicker">
+	                        </div>
+	                    </div>
+	                    <div class="col-md-3">
+	                        <div class="position-relative form-group">
+	                            <label for="maturity_to" created_toclass="">Maturity Date To</label>
+	                            <input name="maturity_to" id="maturity_to" placeholder="" type="text" value="{{ isset($filterArray['maturity_to']) ?formatDate($filterArray['maturity_to'] ,'m/d/Y'):'' }}" class="form-control form-control-sm datepicker @error('maturity_to') is-invalid @enderror" data-toggle="datepicker">
+	                        </div>
+	                    </div>
+	                </div>
+
+		        	<div class="form-row mb-3 px-2">
+	                    
+						
+	                    <div class="col-md-4 pt-1 pl-3">
+	                        <button type="submit" class="btn-shadow btn-wide btn-pill btn-hover-shine btn btn-success mt-3 ml-3">Search</button>
+	                    </div>
+	                </div>
+				</form>
+				<hr>
+				<h4 class="my-2">Investments</h4>
 	        	<table class="mb-0 table table-striped table-hover">
 	                <thead>
 		                <tr>
 		                    <th>#</th>
-		                    <th>ID</th>
-		                    <th>Investment Vehicle</th>
-		                    <th>Investment Status</th>
-		                    <th>Maturity Status</th>
-		                    <th>Maturity Date</th>
-		                    <th>Amount</th>
-		                    <th>Date Created</th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'investmentVehicle'))}}">Investment Vehicle <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'status'))}}">Investment Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'maturityStatus'))}}">Maturity Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'maturityDate'))}}">Maturity Date <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'amount'))}}">Amount <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -49,7 +163,7 @@
 						    @endforeach
 						@else
 							<tr>
-			                    <th scope="row" colspan="6">No records found</th>
+			                    <th scope="row" colspan="8">No records found</th>
 			                </tr>
 						@endif
 	                </tbody>
@@ -64,7 +178,7 @@
 
 	        </div>
 	        <div class="card-footer">
-	            {{ $investments->links() }}
+	            {{ $investments->appends($filterArray??[])->links() }}
 	        </div>
     </div>
 </div>

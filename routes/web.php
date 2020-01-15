@@ -27,7 +27,6 @@ Route::middleware(['auth'])->group(function(){
 
 	Route::get('/', function () {
 	    if(auth()->user()->isAdmin()) return redirect()->route('admin.dashboard');
-	    elseif(auth()->user()->isRegionalFundManager()) return redirect()->route('rfm.dashboard');
 	    elseif(auth()->user()->isFundManager()) return redirect()->route('fm.dashboard');
 	    elseif(auth()->user()->isInvestor()) return redirect()->route('investor.dashboard');
 	    else return redirect()->route('login');
@@ -105,12 +104,15 @@ Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(
     Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+        Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
     });
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
+        Route::post('/search', 'InvestmentsController@index')->name('search');
     });
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
+        Route::post('/search', 'EarningsController@index')->name('search');
     });
     Route::name('my-account.')->prefix('my-account')->group(function(){
         Route::get('/', 'MyAccountController@index')->name('index');
