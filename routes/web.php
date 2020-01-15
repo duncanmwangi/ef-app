@@ -48,12 +48,14 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
 
     Route::name('users.')->prefix('users')->group(function(){
     	Route::get('/', 'UsersController@index')->name('index');
+        Route::post('/search', 'UsersController@index')->name('search');
     	Route::get('/create', 'UsersController@create')->name('create');
     	Route::post('/', 'UsersController@store')->name('store');
     	Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
     	Route::put('/{user}', 'UsersController@update')->name('update');
     	Route::delete('/{user}', 'UsersController@destroy')->name('destroy');
-    	Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
+        Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
+    	Route::get('/{user}/json-investors', 'UsersController@jsonInvestors')->name('jsonInvestors');
     });
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
@@ -74,6 +76,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     });
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
+        Route::post('/search', 'InvestmentsController@index')->name('search');
         Route::get('/create', 'InvestmentsController@create')->name('create');
         Route::post('/', 'InvestmentsController@store')->name('store');
         Route::get('/{investment}/edit', 'InvestmentsController@edit')->name('edit');
@@ -82,8 +85,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     });
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
-        //Route::get('/create', 'EarningsController@create')->name('create');
-        //Route::post('/', 'EarningsController@store')->name('store');
+        Route::post('/search', 'EarningsController@index')->name('search');
         Route::get('/{earning}/edit', 'EarningsController@edit')->name('edit');
         Route::put('/{earning}', 'EarningsController@update')->name('update');
         Route::delete('/{earning}', 'EarningsController@destroy')->name('destroy');

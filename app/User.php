@@ -44,10 +44,10 @@ class User extends Authenticatable
         return $this->role=='admin';
     }
 
-    public function isRegionalFundManager()
-    {
-        return $this->role=='regional-fund-manager';
-    }
+    // public function isRegionalFundManager()
+    // {
+    //     return $this->role=='regional-fund-manager';
+    // }
 
     public function isFundManager()
     {
@@ -76,9 +76,9 @@ class User extends Authenticatable
         return $exists ?asset($this->avatarPath) : asset('assets/images/avatars/1.jpg');
     }
 
-    public static function allRegionalFundManagers($value='')
+    public static function allFundManagers($value='')
     {
-        return User::where('role','regional-fund-manager')->orderBy('firstName','ASC')->get();
+        return User::where('role','fund-manager')->orderBy('firstName','ASC')->get();
     }
 
 
@@ -102,15 +102,15 @@ class User extends Authenticatable
 
 
 
-    public function regionalFundManager()
-    {
-        return $this->belongsTo('App\User','user_id')->where('role','regional-fund-manager');
-    }
+    // public function regionalFundManager()
+    // {
+    //     return $this->belongsTo('App\User','user_id')->where('role','regional-fund-manager');
+    // }
     
-    public function regionalFundManagers()
-    {
-        return $this->hasMany('App\User','user_id')->where('role','regional-fund-manager');
-    }
+    // public function regionalFundManagers()
+    // {
+    //     return $this->hasMany('App\User','user_id')->where('role','regional-fund-manager');
+    // }
 
     public function investments()
     {
@@ -132,8 +132,8 @@ class User extends Authenticatable
 
     public static function get_user_id_given_role($request)
     {
-        if($request->role=='administrator' || $request->role=='regional-fund-manager') return auth()->user()->id;
-        if($request->role=='fund-manager') return $request->rfm;
+        if($request->role=='administrator') return auth()->user()->id;
+        if($request->role=='fund-manager') return auth()->user()->id;
         if($request->role=='investor') return $request->fm;
         return ;
     }

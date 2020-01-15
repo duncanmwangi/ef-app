@@ -68,7 +68,7 @@
                             <label for="password" class="">User Role</label>
                             <select id="dRole" name="role" class="form-control @error('role') is-invalid @enderror">
                                 <option value="">Select User Role</option>
-                                @php $roles = ['investor'=>'Investor','fund-manager'=>'Fund Manager','regional-fund-manager'=>'Regional Fund Manager','admin'=>'Administrator']; @endphp
+                                @php $roles = ['investor'=>'Investor','fund-manager'=>'Fund Manager','admin'=>'Administrator']; @endphp
                                 @foreach($roles as $key => $role)
                                     @php 
                                     $selectedRrole = old('role') ?? $user->role;
@@ -81,27 +81,11 @@
                     </div>
                 </div>
                 <div class="form-row dfms">
-                    <div class="col-md-6 drfm">
-                        <div class="position-relative form-group">
-                            <label for="rfm" class="">Regional Fund Manager</label>
-                            <select name="rfm" class="form-control rfm @error('rfm') is-invalid @enderror">
-                                <option value="">Select Regional Fund Manager</option>
-                                @foreach($regionalFundManagers as $current_rfm)
-                                    @php 
-                                    $selectedRFM = old('rfm') ?? $rfm ?? '';
-                                    $selected = $current_rfm->id==$selectedRFM?'selected="selected"':''; 
-                                    @endphp
-                                    <option value="{{ $current_rfm->id }}"  {{$selected}}>{{ $current_rfm->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-md-6 dfm">
                         <div class="position-relative form-group">
                             <label for="fm" class="">Fund Manager</label>
                             <select name="fm" class="form-control fm @error('fm') is-invalid @enderror">
                                 <option value="">Select Fund Manager</option>
-                                @php $selectedRFM = old('rfm') ?? $rfm ?? 0; $fundManagers = get_fundmanagers($selectedRFM) @endphp
                                 @if($fundManagers)
                                     @foreach($fundManagers as $current_fm)
                                         @php 
@@ -200,9 +184,7 @@
             if(cRole=='investor'){
                 $('.dfms').show();
                 $('.dfm').show();
-                $('.drfm').show();
             }else if(cRole=='fund-manager'){
-                $('.drfm').show();
                 $('.dfms').show();
                 $('.dfm').hide();
             }else{
@@ -214,9 +196,7 @@
                 if(cRole=='investor'){
                     $('.dfms').show();
                     $('.dfm').show();
-                    $('.drfm').show();
                 }else if(cRole=='fund-manager'){
-                    $('.drfm').show();
                     $('.dfms').show();
                     $('.dfm').hide();
                 }else{
@@ -224,22 +204,22 @@
                 }
             });
 
-        $("body").on("change","select.rfm",function(){
-            let rfm = $(this).val();
-            if(rfm.length>0 && $('#dRole').val()=='investor'){
-                let url = "{{route('admin.users.jsonRfms','RFM-ID-HOLDER')}}";
-                $.get(url.replace('RFM-ID-HOLDER',rfm) ,function(data) {
-                    $('.fm').empty();
-                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
-                    $.each(JSON.parse(data), function(index, fmObj){
-                        $('.fm').append('<option value="'+ fmObj.id +'">'+ fmObj.name +'</option>');
-                    });
-                });
-            }else if($('#dRole').val()=='investor'){
-                    $('.fm').empty();
-                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
-            }
-        });
+        // $("body").on("change","select.rfm",function(){
+        //     let rfm = $(this).val();
+        //     if(rfm.length>0 && $('#dRole').val()=='investor'){
+        //         let url = "{{route('admin.users.jsonRfms','RFM-ID-HOLDER')}}";
+        //         $.get(url.replace('RFM-ID-HOLDER',rfm) ,function(data) {
+        //             $('.fm').empty();
+        //             $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+        //             $.each(JSON.parse(data), function(index, fmObj){
+        //                 $('.fm').append('<option value="'+ fmObj.id +'">'+ fmObj.name +'</option>');
+        //             });
+        //         });
+        //     }else if($('#dRole').val()=='investor'){
+        //             $('.fm').empty();
+        //             $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+        //     }
+        // });
 
 
         });

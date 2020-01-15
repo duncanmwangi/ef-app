@@ -43,7 +43,7 @@ class InvestmentVehiclesController extends Controller
 
 
         if ($validator->fails()) {
-            $data['errors'] = $validator;
+            redirect('admin.investment-vehicles.index')->withErrors($validator);
         }else{
             $title = $request->input('title');
             $termType = $request->input('termType');
@@ -74,13 +74,13 @@ class InvestmentVehiclesController extends Controller
             if(!empty($waiting_period) && !empty($waiting_period_operation)){
                 $filterArray['waiting_period'] = $waiting_period;
                 $filterArray['waiting_period_operation'] = $waiting_period_operation;
-                $waiting_period_operation = $this->sign_to_db($waiting_period_operation);
+                $waiting_period_operation = sign_to_db($waiting_period_operation);
                 $investmentVehicles->where('waiting_period',$waiting_period_operation,$waiting_period);
             }
             if(!empty($number_of_terms) && !empty($waiting_period_operation)){
                 $filterArray['number_of_terms'] = $number_of_terms;
                 $filterArray['waiting_period_operation'] = $waiting_period_operation;
-                $number_of_terms_operation = $this->sign_to_db($number_of_terms_operation);
+                $number_of_terms_operation = sign_to_db($number_of_terms_operation);
                 $investmentVehicles->where('number_of_terms',$number_of_terms_operation,$number_of_terms);
             }
 
@@ -232,30 +232,5 @@ class InvestmentVehiclesController extends Controller
         ];
     }
 
-    public function sign_to_db($operation='')
-    {
-        $sign = ''; 
-        switch ($operation) {
-            case 'equal':
-                $sign = '=';
-                break;
-            case 'less_than':
-                $sign = '<';
-                break;
-            case 'less_than_or_equal':
-                $sign = '<=';
-                break;
-            case 'greater_than':
-                $sign = '>';
-                break;
-            case 'greater_than_or_equal_to':
-                $sign = '>=';
-                break;
-            
-            default:
-                $sign = '=';
-                break;
-        }
-        return $sign;
-    }
+   
 }

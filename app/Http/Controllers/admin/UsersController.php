@@ -23,13 +23,12 @@ class UsersController extends Controller
         $data = [];
 
         $validator = Validator::make($request->all(), [
-            'title' => 'nullable|min:5|max:50|unique:investment_vehicles',
-            'status' => 'nullable|in:active,suspended',
-            'waiting_period_operation' => 'nullable|in:equal,less_than,less_than_or_equal,greater_than,greater_than_or_equal_to',
-            'waiting_period' => 'nullable|integer|digits_between:1,3',
-            'number_of_terms_operation' => 'nullable|in:equal,less_than,less_than_or_equal,greater_than,greater_than_or_equal_to',
-            'waiting_period' => 'nullable|integer|digits_between:1,3',
-            'termType' => "nullable|in:monthly,quarterly,bi-annual,annual",
+            'firstName' => 'nullable|max:50',
+            'lastName' => 'nullable|max:50',
+            'email' => 'nullable|email|max:50',
+            'phone' => 'nullable|max:50',
+            'state' => 'nullable|max:5',
+            'role' => "nullable|in:administrator,fund-manager,investor",
             'date_created_from' => 'nullable|date|date_format:m/d/Y|before_or_equal:today',
             'date_created_to' => 'nullable|date|date_format:m/d/Y|before_or_equal:today',
         ],
@@ -43,15 +42,14 @@ class UsersController extends Controller
 
 
         if ($validator->fails()) {
-            $data['errors'] = $validator;
+            redirect('admin.users.index')->withErrors($validator);
         }else{
-            $title = $request->input('title');
-            $termType = $request->input('termType');
-            $status = $request->input('status');
-            $waiting_period_operation = $request->input('waiting_period_operation');
-            $waiting_period = $request->input('waiting_period');
-            $number_of_terms_operation = $request->input('number_of_terms_operation');
-            $number_of_terms = $request->input('number_of_terms');
+            $firstName = $request->input('firstName');
+            $lastName = $request->input('lastName');
+            $email = $request->input('email');
+            $phone = $request->input('phone');
+            $state = $request->input('state');
+            $role = $request->input('role');
             $date_created_from = $request->input('date_created_from');
             $date_created_to = $request->input('date_created_to');
             $sort = $request->input('sort');
@@ -59,40 +57,42 @@ class UsersController extends Controller
             
 
 
-            if(!empty($title)){
-                $investmentVehicles->where('title','LIKE',"%$title%");
-                $filterArray['title'] = $title;
+            if(!empty($firstName)){
+                $users->where('firstName','LIKE',"%$firstName%");
+                $filterArray['firstName'] = $firstName;
             }
-            if(!empty($termType)){
-                $investmentVehicles->where('term',$termType);
-                $filterArray['termType'] = $termType;
+            if(!empty($lastName)){
+                $users->where('lastName','LIKE',"%$lastName%");
+                $filterArray['lastName'] = $lastName;
             }
-            if(!empty($status)){
-                $investmentVehicles->where('status',$status);
-                $filterArray['status'] = $status;
+            if(!empty($email)){
+                $users->where('email','LIKE',"%$email%");
+                $filterArray['email'] = $email;
             }
-            if(!empty($waiting_period) && !empty($waiting_period_operation)){
-                $filterArray['waiting_period'] = $waiting_period;
-                $filterArray['waiting_period_operation'] = $waiting_period_operation;
-                $waiting_period_operation = $this->sign_to_db($waiting_period_operation);
-                $investmentVehicles->where('waiting_period',$waiting_period_operation,$waiting_period);
-            }
-            if(!empty($number_of_terms) && !empty($waiting_period_operation)){
-                $filterArray['number_of_terms'] = $number_of_terms;
-                $filterArray['waiting_period_operation'] = $waiting_period_operation;
-                $number_of_terms_operation = $this->sign_to_db($number_of_terms_operation);
-                $investmentVehicles->where('number_of_terms',$number_of_terms_operation,$number_of_terms);
+            if(!empty($phone)){
+                $users->where('phone','LIKE',"%$phone%");
+                $filterArray['phone'] = $phone;
             }
 
+            if(!empty($state)){
+                $users->where('state','LIKE',"$state");
+                $filterArray['state'] = $state;
+            }
+
+            if(!empty($role)){
+                $users->where('role',$role);
+                $filterArray['role'] = $role;
+            }
+            
 
             if(!empty($date_created_from)){
-                $investmentVehicles->where('created_at','>=',$date_created_from);
+                $users->where('created_at','>=',$date_created_from);
                 $filterArray['date_created_from'] = $date_created_from;
             }
 
 
             if(!empty($date_created_to)){
-                $investmentVehicles->where('created_at','<=',$date_created_to);
+                $users->where('created_at','<=',$date_created_to);
                 $filterArray['date_created_to'] = $date_created_to;
             }
 
@@ -125,8 +125,7 @@ class UsersController extends Controller
      */
     public function create()
     {
-        //$user = new User::allRegionalFundManagers();
-        $data['regionalFundManagers'] = User::allRegionalFundManagers();
+        $data['fundManagers'] = User::allFundManagers();
         return view('admin.users.create',$data);
     }
 
@@ -144,8 +143,7 @@ class UsersController extends Controller
                 'lastName' => 'required|max:50',
                 'email' => 'required|email|max:50|unique:users',
                 'phone' => 'required|max:50',
-                'role' => "required|in:investor,'fund-manager','regional-fund-manager',administrator",
-                'rfm' => 'required_if:role,investor,fund-manager',
+                'role' => "required|in:investor,'fund-manager',administrator",
                 'fm' => 'required_if:role,investor',
                 'alternatePhone' => 'nullable|max:50',
                 'street1' => 'required|max:50',
@@ -192,11 +190,8 @@ class UsersController extends Controller
     {
         if($user->isInvestor()){
             $data['fm'] = $user->user_id;
-            $data['rfm'] = User::find($user->user_id)->user_id;
-        }elseif($user->isFundManager()){
-            $data['rfm'] = $user->user_id;
         }
-        $data['regionalFundManagers'] = User::allRegionalFundManagers();
+        $data['fundManagers'] = User::allFundManagers();
         $data['user'] = $user;
         return view('admin.users.edit',$data);
     }
@@ -216,8 +211,7 @@ class UsersController extends Controller
                 'lastName' => 'required|max:50',
                 'email' => ['required','email','max:50',Rule::unique('users')->ignore($user->id)],
                 'phone' => 'required|max:50',
-                'role' => "required|in:investor,'fund-manager','regional-fund-manager',administrator",
-                'rfm' => 'required_if:role,investor,fund-manager',
+                'role' => "required|in:investor,'fund-manager',administrator",
                 'fm' => 'required_if:role,investor',
                 'alternatePhone' => 'nullable|max:50',
                 'street1' => 'required|max:50',
@@ -276,7 +270,6 @@ class UsersController extends Controller
             'street2'=> 'Street Address 2',
             'city'=> 'City',
             'zip'=> 'Zip Code',
-            'rfm'=> 'Regional Fund Manager',
             'fm'=> 'Fund Manager',
             'password'=> 'User Password',
             'cpassword'=> 'Confirm User Password',
@@ -293,5 +286,10 @@ class UsersController extends Controller
     public function jsonFundManagers(User $user)
     {
         return json_encode($user->fundManagers->map(function($u){ return ['id'=>$u->id,'name'=>$u->name]; }));
+    }
+
+    public function jsonInvestors(User $user)
+    {
+        return json_encode($user->investors->map(function($u){ return ['id'=>$u->id,'name'=>$u->name]; }));
     }
 }

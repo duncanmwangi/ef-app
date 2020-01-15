@@ -116,6 +116,33 @@ function percent_return($earning){
 	return ($earned_amount*100)/$invested_amount;
 }
 
+function sign_to_db($operation='')
+{
+    $sign = ''; 
+    switch ($operation) {
+        case 'equal':
+            $sign = '=';
+            break;
+        case 'less_than':
+            $sign = '<';
+            break;
+        case 'less_than_or_equal':
+            $sign = '<=';
+            break;
+        case 'greater_than':
+            $sign = '>';
+            break;
+        case 'greater_than_or_equal_to':
+            $sign = '>=';
+            break;
+        
+        default:
+            $sign = '=';
+            break;
+    }
+    return $sign;
+}
+
 function sort_by($filterArray=[],$key='')
 {
 

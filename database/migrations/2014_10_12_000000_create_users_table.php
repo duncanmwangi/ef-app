@@ -26,7 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('zip');
             $table->string('country')->default('US');
             $table->string('avatarPath')->nullable();
-            $table->enum('role',['admin','regional-fund-manager','fund-manager','investor'])->default('investor');
+            $table->enum('role',['admin','fund-manager','investor'])->default('investor');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');

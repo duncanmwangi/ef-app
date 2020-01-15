@@ -78,24 +78,11 @@
                     </div>
                 </div>
                 <div class="form-row dfms">
-                    <div class="col-md-6 drfm">
-                        <div class="position-relative form-group">
-                            <label for="rfm" class="">Regional Fund Manager</label>
-                            <select name="rfm" class="form-control rfm @error('rfm') is-invalid @enderror">
-                                <option value="">Select Regional Fund Manager</option>
-                                @foreach($regionalFundManagers as $rfm)
-                                    @php $selected = $rfm->id==old('rfm')?'selected="selected"':''; @endphp
-                                    <option value="{{ $rfm->id }}"  {{$selected}}>{{ $rfm->name }}</option>
-                                @endforeach
-                            </select>
-                        </div>
-                    </div>
                     <div class="col-md-6 dfm">
                         <div class="position-relative form-group">
                             <label for="fm" class="">Fund Manager</label>
                             <select name="fm" class="form-control fm @error('fm') is-invalid @enderror">
                                 <option value="">Select Fund Manager</option>
-                                @php $fundManagers = get_fundmanagers(old('rfm')) @endphp
                                 @if($fundManagers)
                                     @foreach($fundManagers as $fm)
                                         @php $selected = $fm->id==old('fm')?'selected="selected"':''; @endphp
@@ -191,9 +178,7 @@
             if(cRole=='investor'){
                 $('.dfms').show();
                 $('.dfm').show();
-                $('.drfm').show();
             }else if(cRole=='fund-manager'){
-                $('.drfm').show();
                 $('.dfms').show();
                 $('.dfm').hide();
             }else{
@@ -205,9 +190,7 @@
                 if(cRole=='investor'){
                     $('.dfms').show();
                     $('.dfm').show();
-                    $('.drfm').show();
                 }else if(cRole=='fund-manager'){
-                    $('.drfm').show();
                     $('.dfms').show();
                     $('.dfm').hide();
                 }else{
@@ -215,23 +198,23 @@
                 }
             });
 
-        $("body").on("change","select.rfm",function(){
-            let rfm = $(this).val();
-            if(rfm.length>0 && $('#dRole').val()=='investor'){
-                let url = "{{route('admin.users.jsonRfms','RFM-ID-HOLDER')}}";
-                $.get(url.replace('RFM-ID-HOLDER',rfm) ,function(data) {
-                    $('.fm').empty();
-                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
-                    $.each(JSON.parse(data), function(index, fmObj){
-                        $('.fm').append('<option value="'+ fmObj.id +'">'+ fmObj.name +'</option>');
-                    });
-                });
-            }
-            else if($('#dRole').val()=='investor'){
-                    $('.fm').empty();
-                    $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
-            }
-        });
+        // $("body").on("change","select.rfm",function(){
+        //     let rfm = $(this).val();
+        //     if(rfm.length>0 && $('#dRole').val()=='investor'){
+        //         let url = "{{route('admin.users.jsonRfms','RFM-ID-HOLDER')}}";
+        //         $.get(url.replace('RFM-ID-HOLDER',rfm) ,function(data) {
+        //             $('.fm').empty();
+        //             $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+        //             $.each(JSON.parse(data), function(index, fmObj){
+        //                 $('.fm').append('<option value="'+ fmObj.id +'">'+ fmObj.name +'</option>');
+        //             });
+        //         });
+        //     }
+        //     else if($('#dRole').val()=='investor'){
+        //             $('.fm').empty();
+        //             $('.fm').append('<option value="" disable="true" selected="true">Select Fund Manager</option>');
+        //     }
+        // });
 
 
         });
