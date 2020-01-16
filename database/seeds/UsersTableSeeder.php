@@ -57,6 +57,22 @@ class UsersTableSeeder extends Seeder
             'password' => bcrypt('investor@ef.com'),
             'user_id' => $fm_id
         ]);
+        for($k = 1; $k<=15; $k++){
+            $id = DB::table('users')->insertGetId([
+                'firstName' => $faker->firstName,
+                'lastName' => $faker->lastName,
+                'phone' => $faker->e164PhoneNumber,
+                'street1' => $faker->streetAddress,
+                'city' => $faker->city,
+                'state' => $faker->stateAbbr,
+                'zip' => $faker->postcode,
+                'country' => 'US',
+                'role' => 'investor',
+                'email' => $faker->unique()->safeEmail,
+                'password' => bcrypt(Str::random(10)),
+                'user_id' => $fm_id
+            ]);
+        }
 
 
         $n = rand(10,30);
