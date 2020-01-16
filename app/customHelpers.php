@@ -103,7 +103,11 @@ function mysqlDateTime($d,$format = 'Y-m-d H:i:s'){
 }
 
 function moneyFormat($amount=0){
-	return number_format($amount,2);
+	return '$'.number_format($amount,2);
+}
+
+function percentFormat($amount=0){
+	return number_format($amount,2).'%';
 }
 
 function percent_return($earning){

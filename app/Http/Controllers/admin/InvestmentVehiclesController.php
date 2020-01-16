@@ -161,10 +161,58 @@ class InvestmentVehiclesController extends Controller
             $sort = 'number_of_terms';
         }
 
+        $stats = [];
+
+        $stats_investments_obj = clone $investmentVehicles;
+        $stats_mature_investments_obj = clone $investmentVehicles;
+        $stats_immature_investments_obj = clone $investmentVehicles;
+        $stats_earnings_obj = clone $investmentVehicles;
+        $stats_returns_obj = clone $investmentVehicles;
+        $stats_unissued_returns_obj = clone $investmentVehicles;
+
+        $c_investments_sql = DB::raw("(SELECT count(i.id) as num, sum(i.amount) as amount,i.investment_vehicle_id FROM investments as i  GROUP BY i.investment_vehicle_id) as c_investments");
+        $investments = $stats_investments_obj->leftjoin($c_investments_sql,'investment_vehicles.id','=','c_investments.investment_vehicle_id');
+        $stats['investments'] = $investments->sum('c_investments.num');
+        $stats['investments_amount'] = $investments->sum('c_investments.amount');
+
+        $c_mature_investments_sql = DB::raw("(SELECT count(i.id) as num, sum(i.amount) as amount,i.investment_vehicle_id FROM investments as i LEFT JOIN investment_vehicles as iv ON iv.id=i.investment_vehicle_id WHERE  DATE_ADD(i.created_at,INTERVAL iv.waiting_period MONTH) <= now()  GROUP BY i.investment_vehicle_id) as c_mature_investments");
+        $mature_investments = $stats_mature_investments_obj->leftjoin($c_mature_investments_sql,'investment_vehicles.id','=','c_mature_investments.investment_vehicle_id');
+        $stats['mature_investments'] = $mature_investments->sum('c_mature_investments.num');
+        $stats['mature_investments_amount'] = $mature_investments->sum('c_mature_investments.amount');
+
+        $c_immature_investments_sql = DB::raw("(SELECT count(i.id) as num, sum(i.amount) as amount,i.investment_vehicle_id FROM investments as i LEFT JOIN investment_vehicles as iv ON iv.id=i.investment_vehicle_id WHERE  DATE_ADD(i.created_at,INTERVAL iv.waiting_period MONTH) > now() GROUP BY i.investment_vehicle_id) as c_immature_investments");
+        $immature_investments = $stats_immature_investments_obj->leftjoin($c_immature_investments_sql,'investment_vehicles.id','=','c_immature_investments.investment_vehicle_id');
+        $stats['immature_investments'] = $immature_investments->sum('c_immature_investments.num');
+        $stats['immature_investments_amount'] = $immature_investments->sum('c_immature_investments.amount');
+
+
+        $c_returns_sql = DB::raw("(SELECT count(r.id) as num, sum(percent_return) as roi, r.investment_vehicle_id FROM investment_vehicle_returns as r WHERE r.status='ISSUED' GROUP BY r.investment_vehicle_id) as c_returns");
+        $returns = $stats_returns_obj->leftjoin($c_returns_sql,'investment_vehicles.id','=','c_returns.investment_vehicle_id');
+        $stats['returns'] = $returns->sum('c_returns.num');
+        $sum_roi = $returns->sum('c_returns.roi');
+        $stats['average_roi'] = $stats['returns']<=0?0:$sum_roi/$stats['returns'];
+
+
+        $c_unissued_returns_sql = DB::raw("(SELECT count(r.id) as num, sum(percent_return) as roi, r.investment_vehicle_id FROM investment_vehicle_returns as r WHERE r.status='PENDING' GROUP BY r.investment_vehicle_id) as c_returns");
+        $unissued_returns = $stats_unissued_returns_obj->leftjoin($c_unissued_returns_sql,'investment_vehicles.id','=','c_returns.investment_vehicle_id');
+        $stats['unissued_returns'] = $unissued_returns->sum('c_returns.num');
+        $sum_roi = $unissued_returns->sum('c_returns.roi');
+        $stats['unissued_average_roi'] = $stats['unissued_returns']<=0?0:$sum_roi/$stats['unissued_returns'];
+
+
+
+        $c_earnings_sql = DB::raw("(SELECT count(e.id) as num, sum(e.amount) as amount,r.investment_vehicle_id FROM earnings as e LEFT JOIN investment_vehicle_returns as r ON r.id=e.investment_vehicle_return_id GROUP BY r.investment_vehicle_id) as c_earnings");
+        $earnings = $stats_earnings_obj->leftjoin($c_earnings_sql,'investment_vehicles.id','=','c_earnings.investment_vehicle_id');
+        $stats['earnings'] = $earnings->sum('c_earnings.num');
+        $stats['earnings_amount'] = $earnings->sum('c_earnings.amount');
+
         $investmentVehicles = $investmentVehicles->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
 
         $data['investmentVehicles'] = $investmentVehicles;
+
         $data['filterArray'] = $filterArray;
+
+        $data['stats'] = (object)$stats;
 
 
 

@@ -79,18 +79,6 @@
                         </i>Earnings
                     </a>
                 </li>
-               {{--  <li>
-                    <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.leads') mm-active @endif">
-                        <i class="metismenu-icon lnr-star">
-                        </i>Leads
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.settings') mm-active @endif">
-                        <i class="metismenu-icon lnr-cog">
-                        </i>Settings
-                    </a>
-                </li> --}}
 
                 <li class="@if(in_array(Route::currentRouteName(),['common.password.edit','common.profile.edit'])) mm-active @endif">
                     <a href="#">

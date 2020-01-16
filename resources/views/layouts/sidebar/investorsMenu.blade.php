@@ -27,12 +27,6 @@
                         </i>My Earnings
                     </a>
                 </li>
-                {{-- <li class="@if(Route::currentRouteName()=='investor.my-account.index') mm-active @endif" >
-                    <a href="{{ route('investor.my-account.index') }}" class="@if(Route::currentRouteName()=='investor.my-account.index') mm-active @endif">
-                        <i class="metismenu-icon lnr-star">
-                        </i>My Account
-                    </a>
-                </li> --}}
 
                 <li class="@if(in_array(Route::currentRouteName(),['common.password.edit','common.profile.edit'])) mm-active @endif">
                     <a href="#">

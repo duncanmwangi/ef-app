@@ -175,9 +175,26 @@ class EarningsController extends Controller
             $sort = 'earnings.amount';
         }
 
+        $stats = [];
 
+        $stats_earnings_obj = clone $earnings;
+        $stats['earnings'] = $stats_earnings_obj->count();
 
-        
+        $stats_earnings_amount_obj = clone $earnings;
+        $stats['earnings_amount'] = $stats_earnings_amount_obj->sum('earnings.amount');
+
+        $stats_investments_obj = clone $earnings;
+        $stats['investments'] = $stats_investments_obj->groupBy('investments.id')->count();
+
+        $stats_investments_amount_obj = clone $earnings;
+        $stats['investments_amount'] = $stats_investments_amount_obj->groupBy('investments.id')->sum('investments.amount');
+
+        $stats['average_earning'] = $stats['earnings']==0?0:$stats['earnings_amount']/$stats['earnings'];
+
+        $stats['average_investment'] = $stats['investments']==0?0:$stats['investments_amount']/$stats['investments'];
+
+        $stats['average_roi'] = $stats['average_investment']==0?0:$stats['average_earning']*100/$stats['average_investment'];
+
 
         $data['earnings'] = $earnings->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
 
@@ -186,6 +203,8 @@ class EarningsController extends Controller
         $data['fundManagers'] = User::allFundManagers();
 
         $data['filterArray'] = $filterArray;
+
+        $data['stats'] = (object)$stats;
 
         return view('admin.earnings.index',$data);
     }

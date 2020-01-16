@@ -134,15 +134,166 @@
 	            </table>
 
                 <div class="form-row">
-                	
+                	{{ $users->appends($filterArray??[])->links() }}
                 </div>
 
 
 
 
 	        </div>
-	        <div class="card-footer">
-	            {{ $users->appends($filterArray??[])->links() }}
+	        <div class="card-footer px-0">
+	           <div class="no-gutters mt-1 px-0 col-md-12 row">
+				    <div class="col-md-12">
+				        <h3 class="card-header-title font-size-lg text-capitalize font-weight-bold ml-3">Statistics</h3>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Admins</div>
+				                                <div class="widget-subheading">Number of Admins</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ $stats->admins }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Fund Managers</div>
+				                                <div class="widget-subheading">Number of Fund Managers</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ $stats->fund_managers }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Investors</div>
+				                                <div class="widget-subheading">Number of Investors</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ $stats->investors }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Investments</div>
+				                                <div class="widget-subheading">Number of Investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Mature Investments</div>
+				                                <div class="widget-subheading">Number of Mature Investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->mature_investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Immature Investments</div>
+				                                <div class="widget-subheading">Number of Immature Investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->immature_investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Investments Amount</div>
+				                                <div class="widget-subheading">Total amount invested</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ moneyFormat($stats->investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Mature Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of mature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ moneyFormat($stats->mature_investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Immature Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of immature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ moneyFormat($stats->immature_investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				</div>
 	        </div>
     </div>
 </div>

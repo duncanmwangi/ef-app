@@ -139,15 +139,120 @@
 	            </table>
 
                 <div class="form-row">
-                	
+	            	{{ $earnings->appends($filterArray??[])->links()  }}
                 </div>
 
 
 
 
 	        </div>
-	        <div class="card-footer">
-	            {{ $earnings->appends($filterArray??[])->links()  }}
+	        <div class="card-footer px-0">
+	           <div class="no-gutters mt-1 px-0 col-md-12 row">
+				    <div class="col-md-12">
+				        <h3 class="card-header-title font-size-lg text-capitalize font-weight-bold ml-3">Statistics</h3></div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Earnings Amount</div>
+				                                <div class="widget-subheading">Total amount of earnings</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ moneyFormat($stats->earnings_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Average Earning Amount</div>
+				                                <div class="widget-subheading">Average amount per earning</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ moneyFormat($stats->average_earning) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Number of Investments</div>
+				                                <div class="widget-subheading">Total number of investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Average Investment Amount</div>
+				                                <div class="widget-subheading">Average amount per investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ moneyFormat($stats->average_investment) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Total Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of investment investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ moneyFormat($stats->investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Average ROI</div>
+				                                <div class="widget-subheading">Average earning per return per investment</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ percentFormat($stats->average_roi) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				</div>
 	        </div>
     </div>
 </div>

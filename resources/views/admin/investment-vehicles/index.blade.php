@@ -172,15 +172,214 @@
 	            </table>
 
                 <div class="form-row">
-                	
+	            	{{ $investmentVehicles->appends($filterArray??[])->links() }}
                 </div>
 
 
 
 
 	        </div>
-	        <div class="card-footer">
-	            {{ $investmentVehicles->appends($filterArray??[])->links() }}
+	        <div class="card-footer px-0">
+	           <div class="no-gutters mt-1 px-0 col-md-12 row">
+				    <div class="col-md-12">
+				        <h3 class="card-header-title font-size-lg text-capitalize font-weight-bold ml-3">Statistics</h3></div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+
+				                                <div class="widget-heading">Number of Investments</div>
+				                                <div class="widget-subheading">Total number of investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ $stats->investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+
+				                                <div class="widget-heading">Total Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ moneyFormat($stats->investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+
+				                                <div class="widget-heading">Number Of Mature Investments</div>
+				                                <div class="widget-subheading">Total number of mature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ $stats->mature_investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+
+				                                <div class="widget-heading">Mature Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of immature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-success">{{ moneyFormat($stats->immature_investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Number of Issued Returns</div>
+				                                <div class="widget-subheading">Total number of Issued Returns</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->returns }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Average ROI</div>
+				                                <div class="widget-subheading">Average return on investment</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ percentFormat($stats->average_roi) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Mature Investments Amount</div>
+				                                <div class="widget-subheading">Total amount of mature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ moneyFormat($stats->mature_investments_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Number of Unissued Returns</div>
+				                                <div class="widget-subheading">Total number of unissued returns</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-warning">{{ $stats->unissued_returns }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				    <div class="col-md-12 col-lg-4">
+				        <ul class="list-group list-group-flush">
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Number of Earnings</div>
+				                                <div class="widget-subheading">Total number of earnings</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ $stats->earnings }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Earnings Amount</div>
+				                                <div class="widget-subheading">Total amount of earnings</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ moneyFormat($stats->earnings_amount) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Number Of Immature Investments</div>
+				                                <div class="widget-subheading">Total number of immature investments</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ $stats->immature_investments }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				            <li class="bg-transparent list-group-item">
+				                <div class="widget-content p-0">
+				                    <div class="widget-content-outer">
+				                        <div class="widget-content-wrapper">
+				                            <div class="widget-content-left">
+				                                <div class="widget-heading">Average Unissued ROI</div>
+				                                <div class="widget-subheading">Average ROI for all unissued returns</div>
+				                            </div>
+				                            <div class="widget-content-right">
+				                                <div class="widget-numbers text-danger">{{ percentFormat($stats->unissued_average_roi) }}</div>
+				                            </div>
+				                        </div>
+				                    </div>
+				                </div>
+				            </li>
+				        </ul>
+				    </div>
+				</div>
 	        </div>
     </div>
 </div>

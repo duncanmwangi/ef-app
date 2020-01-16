@@ -153,6 +153,27 @@ class InvestmentsController extends Controller
         }
 
 
+        $stats = [];
+
+        $stats_investments_obj = clone $investments;
+        $stats['investments'] = $stats_investments_obj->count();
+
+        $stats_investments_amount_obj = clone $investments;
+        $stats['investments_amount'] = $stats_investments_amount_obj->sum('investments.amount');
+
+        $stats_mature_investments_obj = clone $investments;
+        $stats['mature_investments'] = $stats_mature_investments_obj->whereRaw("DATE_ADD(investments.created_at,INTERVAL investment_vehicles.waiting_period MONTH)<=now()")->count();
+
+        $stats_mature_investments_amount_obj = clone $investments;
+        $stats['mature_investments_amount'] = $stats_mature_investments_amount_obj->whereRaw("DATE_ADD(investments.created_at,INTERVAL investment_vehicles.waiting_period MONTH)<=now()")->sum('investments.amount');
+
+        $stats_immature_investments_obj = clone $investments;
+        $stats['immature_investments'] = $stats_immature_investments_obj->whereRaw("DATE_ADD(investments.created_at,INTERVAL investment_vehicles.waiting_period MONTH)>now()")->count();
+
+        $stats_immature_investments_amount_obj = clone $investments;
+        $stats['immature_investments_amount'] = $stats_immature_investments_amount_obj->whereRaw("DATE_ADD(investments.created_at,INTERVAL investment_vehicles.waiting_period MONTH)>now()")->sum('investments.amount');
+
+
         
 
         $data['investments'] = $investments->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
@@ -162,6 +183,8 @@ class InvestmentsController extends Controller
         $data['fundManagers'] = User::allFundManagers();
 
         $data['filterArray'] = $filterArray;
+
+        $data['stats'] = (object)$stats;
 
         return view('investor.investments.index',$data);
     }

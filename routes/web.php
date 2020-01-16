@@ -91,12 +91,38 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     });
 });
 
-Route::name('rfm.')->prefix('rfm')->namespace('rfm')->middleware(['auth','checkRole:regional-fund-manager'])->group(function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
-});
 
 Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole:fund-manager'])->group(function () {
-    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
+
+    Route::name('investors.')->prefix('investors')->group(function(){
+        Route::get('/', 'UsersController@index')->name('index');
+        Route::post('/search', 'UsersController@index')->name('search');
+        Route::get('/create', 'UsersController@create')->name('create');
+        Route::post('/', 'UsersController@store')->name('store');
+        Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
+        Route::put('/{user}', 'UsersController@update')->name('update');
+    });
+    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+        Route::get('/', 'InvestmentVehiclesController@index')->name('index');
+        Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
+    });
+    Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
+        Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
+    });
+    Route::name('investments.')->prefix('investments')->group(function(){
+        Route::get('/', 'InvestmentsController@index')->name('index');
+        Route::post('/search', 'InvestmentsController@index')->name('search');
+        Route::get('/create', 'InvestmentsController@create')->name('create');
+        Route::post('/', 'InvestmentsController@store')->name('store');
+        Route::get('/{investment}/edit', 'InvestmentsController@edit')->name('edit');
+        Route::put('/{investment}', 'InvestmentsController@update')->name('update');
+        Route::delete('/{investment}', 'InvestmentsController@destroy')->name('destroy');
+    });
+    Route::name('earnings.')->prefix('earnings')->group(function(){
+        Route::get('/', 'EarningsController@index')->name('index');
+        Route::post('/search', 'EarningsController@index')->name('search');
+    });
 });
 
 

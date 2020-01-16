@@ -142,12 +142,38 @@ class UsersController extends Controller
         }elseif($sort=='-created_at'){
             $sort = 'created_at';
         }
-        
+        $stats = [];
+
+        $stats_admins_obj = clone $users;
+        $stats_investors_obj = clone $users;
+        $stats_fund_managers_obj = clone $users;
+        $stats_investments_obj = clone $users;
+
+        $stats['admins'] = $stats_admins_obj->where('role','admin')->count();
+        $stats['investors'] = $stats_investors_obj->where('role','investor')->count();
+        $stats['fund_managers'] = $stats_fund_managers_obj->where('role','fund-manager')->count();
+
+        $mature_investments_sql = DB::raw("(SELECT count(i.id) as num, sum(i.amount) as amount,i.user_id FROM investments as i LEFT JOIN investment_vehicles as iv ON iv.id=i.investment_vehicle_id WHERE DATE_ADD(i.created_at,INTERVAL iv.waiting_period MONTH) <= now() GROUP BY i.user_id) as mature_investments");
+
+        $immature_investments_sql = DB::raw("(SELECT count(i.id) as num, sum(i.amount) as amount,i.user_id FROM investments as i LEFT JOIN investment_vehicles as iv ON iv.id=i.investment_vehicle_id WHERE DATE_ADD(i.created_at,INTERVAL iv.waiting_period MONTH) >= now() GROUP BY i.user_id) as immature_investments");
+
+        $investments = $stats_investments_obj->leftjoin($mature_investments_sql,'users.id','=','mature_investments.user_id')
+                                             ->leftjoin($immature_investments_sql,'users.id','=','immature_investments.user_id');
+
+        $stats['mature_investments'] = $investments->sum('mature_investments.num');
+        $stats['immature_investments'] = $investments->sum('immature_investments.num');
+        $stats['investments'] = $stats['mature_investments'] + $stats['immature_investments'];
+        $stats['mature_investments_amount'] = $investments->sum('mature_investments.amount');
+        $stats['immature_investments_amount'] = $investments->sum('immature_investments.amount');
+        $stats['investments_amount'] = $stats['mature_investments_amount'] + $stats['immature_investments_amount'];
 
         $users = $users->orderBy(DB::raw($sort),$asc_desc)->paginate(env('ITEMS_PER_PAGE'));
 
         $data['users'] = $users;
+
         $data['filterArray'] = $filterArray;
+
+        $data['stats'] = (object)$stats;
 
         return view('admin.users.index',$data);
     }

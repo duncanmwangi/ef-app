@@ -1,57 +1,43 @@
 
             <ul class="vertical-nav-menu">
-                <li class="app-sidebar__heading">Fund Manager Menu</li>
-                <li class="@if(Route::currentRouteName()=='admin.dashboard') mm-active @endif" >
-                    <a href="{{ route('admin.dashboard') }}"  class="@if(Route::currentRouteName()=='admin.dashboard') mm-active @endif">
+                <li class="app-sidebar__heading">Fund MAnager Menu</li>
+                <li class="@if(Route::currentRouteName()=='fm.dashboard') mm-active @endif" >
+                    <a href="{{ route('fm.dashboard') }}"  class="@if(Route::currentRouteName()=='fm.dashboard') mm-active @endif">
                         <i class="metismenu-icon lnr-pie-chart">
                         </i>Dashboard
                     </a>
                 </li>
-                <li  class="@if(in_array(Route::currentRouteName(),['admin.investmentvehicles.create','admin.investmentvehicles.index'])) mm-active @endif">
-                    <a href="#">
-                        <i class="metismenu-icon lnr-bus">
+                
+
+                <li class="@if(Route::currentRouteName()=='fm.investment-vehicles.index') mm-active @endif" >
+                    <a href="{{ route('fm.investment-vehicles.index') }}" class="@if(Route::currentRouteName()=='fm.investment-vehicles.index') mm-active @endif">
+                        <i class="metismenu-icon lnr-cart">
                         </i>Investment Vehicles
-                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                    <ul>
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investmentvehicles.create') mm-active @endif">
-                                <i class="metismenu-icon"></i>
-                                Add Investment Vehicle
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investmentvehicles.index') mm-active @endif">
-                                <i class="metismenu-icon">
-                                </i>All Investment Vehicles
-                            </a>
-                        </li>
-                        
-                    </ul>
                 </li>
-                <li class="@if(in_array(Route::currentRouteName(),['admin.users.create','admin.users.index'])) mm-active @endif">
+                <li class="@if(in_array(Route::currentRouteName(),['fm.investors.create','fm.investors.index'])) mm-active @endif">
                     <a href="#">
                         <i class="metismenu-icon lnr-users">
-                        </i>Users
+                        </i>Investors
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.users.create') mm-active @endif">
+                            <a href="{{ route('fm.investors.create') }}" class="@if(Route::currentRouteName()=='fm.investors.create') mm-active @endif">
                                 <i class="metismenu-icon"></i>
-                                Add User
+                                Add Investor
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.users.index') mm-active @endif">
+                            <a href="{{ route('fm.investors.index') }}" class="@if(Route::currentRouteName()=='fm.investors.index') mm-active @endif">
                                 <i class="metismenu-icon">
-                                </i>All Users
+                                </i>All Investors
                             </a>
                         </li>
                         
                     </ul>
                 </li>
-                <li class="@if(in_array(Route::currentRouteName(),['admin.investments.create','admin.investments.index'])) mm-active @endif">
+                <li class="@if(in_array(Route::currentRouteName(),['fm.investments.create','fm.investments.index'])) mm-active @endif">
                     <a href="#">
                         <i class="metismenu-icon lnr-chart-bars">
                         </i>Investments
@@ -59,13 +45,13 @@
                     </a>
                     <ul>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investments.create') mm-active @endif">
+                            <a href="{{ route('fm.investments.create') }}" class="@if(Route::currentRouteName()=='fm.investments.create') mm-active @endif">
                                 <i class="metismenu-icon"></i>
                                 Add Investment
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.investments.index') mm-active @endif">
+                            <a href="{{ route('fm.investments.index') }}" class="@if(Route::currentRouteName()=='fm.investments.index') mm-active @endif">
                                 <i class="metismenu-icon">
                                 </i>All Investments
                             </a>
@@ -73,22 +59,10 @@
                         
                     </ul>
                 </li>
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.earnings') mm-active @endif">
+                <li class="@if(Route::currentRouteName()=='fm.earnings.index') mm-active @endif" >
+                    <a href="{{ route('fm.earnings.index') }}" class="@if(Route::currentRouteName()=='fm.earnings.index') mm-active @endif">
                         <i class="metismenu-icon lnr-cart">
                         </i>Earnings
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.leads') mm-active @endif">
-                        <i class="metismenu-icon lnr-star">
-                        </i>Leads
-                    </a>
-                </li>
-                <li>
-                    <a href="{{ route('admin.dashboard') }}" class="@if(Route::currentRouteName()=='admin.settings') mm-active @endif">
-                        <i class="metismenu-icon lnr-cog">
-                        </i>Settings
                     </a>
                 </li>
 
