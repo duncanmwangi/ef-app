@@ -18,6 +18,8 @@ class InvestmentVehiclesController extends Controller
      */
     public function index(Request $request)
     {
+        $investor_id = auth()->user()->id;
+
         $data = [];
 
         $validator = Validator::make($request->all(), [
@@ -37,7 +39,9 @@ class InvestmentVehiclesController extends Controller
 
         $filterArray = [];
 
-        $investmentVehicles = InvestmentVehicle::select('*');
+        $investmentVehicles = InvestmentVehicle::select('investment_vehicles.*','p.num','p.amount');
+        $p_investments_sql = DB::raw("(SELECT IFNULL(count(i.id),0) as num, IFNULL(sum(i.amount),0) as amount,i.investment_vehicle_id FROM investments as i WHERE i.status='APPROVED' AND i.user_id = $investor_id  GROUP BY i.investment_vehicle_id) as p");
+        $investmentVehicles->leftjoin($p_investments_sql,'investment_vehicles.id','=','p.investment_vehicle_id');
 
 
         if ($validator->fails()) {
@@ -96,24 +100,33 @@ class InvestmentVehiclesController extends Controller
 
         }
 
-        $sortable = ['id','-id','title','-title','status','-status','waiting_period','-waiting_period','term','-term','created_at','-created_at','number_of_terms','-number_of_terms'];
+        $sortable = ['id','-id','title','-title','num','-num','amount','-amount','status','-status','waiting_period','-waiting_period','term','-term','created_at','-created_at','number_of_terms','-number_of_terms'];
 
         $sort = !empty($sort) && in_array($sort, $sortable) ?$sort:'title';
 
         $filterArray['sort'] = $sort;
 
         $asc_desc = 'DESC';
-        if($sort=='id'){
-            $asc_desc = 'ASC';
-        }elseif($sort=='-id'){
-            $sort = 'id';
-        }
         
         
         if($sort=='title'){
             $asc_desc = 'ASC';
         }elseif($sort=='-title'){
             $sort = 'title';
+        }
+        
+        
+        if($sort=='num'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-num'){
+            $sort = 'num';
+        }
+        
+        
+        if($sort=='amount'){
+            $asc_desc = 'ASC';
+        }elseif($sort=='-amount'){
+            $sort = 'amount';
         }
         
         

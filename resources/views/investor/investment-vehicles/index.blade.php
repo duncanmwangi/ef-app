@@ -136,13 +136,15 @@
 	                <thead>
 		                <tr>
 		                    <th>#</th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'title'))}}">Title <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'waiting_period'))}}">Waiting Period <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'term'))}}">Terms <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of earning terms <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'status'))}}">Status <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('investor.investment-vehicles.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'title'))}}">Title <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'waiting_period'))}}">Waiting<br/>Period <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'term'))}}">Terms <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of<br/>earning terms <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'status'))}}">Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'num'))}}">No of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'amount'))}}">Amount of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -158,6 +160,8 @@
 				                    <td>{{ ucwords($investmentVehicle->term) }}</td>
 				                    <td>{{ $investmentVehicle->number_of_terms }}</td>
 				                    <td>{!! badge($investmentVehicle->status,$investmentVehicle->status=='active'?'success':'danger') !!}</td>
+				                    <td>{{ num($investmentVehicle->num) }}</td>
+				                    <td>{{ moneyFormat($investmentVehicle->amount) }}</td>
 				                    <td>{{ formatDate($investmentVehicle->created_at) }}</td>
 				                </tr>
 						    @endforeach

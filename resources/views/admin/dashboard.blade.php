@@ -367,7 +367,7 @@
                     }, {
                         opposite: true,
                         title: {
-                            text: 'New Investors'
+                            text: 'New Investors',
                         }
                     }]
 
