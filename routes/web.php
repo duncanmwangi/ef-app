@@ -43,7 +43,7 @@ Route::middleware(['auth'])->group(function(){
 
 Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','checkRole:admin'])->group(function () {
 
-    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::name('users.')->prefix('users')->group(function(){
     	Route::get('/', 'UsersController@index')->name('index');

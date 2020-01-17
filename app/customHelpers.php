@@ -106,6 +106,10 @@ function moneyFormat($amount=0){
 	return '$'.number_format($amount,2);
 }
 
+function num($amount=0,$dec=0){
+	return number_format($amount,$dec);
+}
+
 function percentFormat($amount=0){
 	return number_format($amount,2).'%';
 }
