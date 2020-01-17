@@ -57,6 +57,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
         Route::get('/{user}/json-fund-managers', 'UsersController@jsonFundManagers')->name('jsonRfms');
     	Route::get('/{user}/json-investors', 'UsersController@jsonInvestors')->name('jsonInvestors');
     });
+    
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
@@ -67,6 +68,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     	Route::put('/{investmentVehicle}', 'InvestmentVehiclesController@update')->name('update');
     	Route::delete('/{investmentVehicle}', 'InvestmentVehiclesController@destroy')->name('destroy');
     });
+
     Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
         Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
         Route::get('/{investmentVehicle}/create', 'InvestmentVehicleReturnsController@create')->name('create');
@@ -75,6 +77,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
         Route::put('/{investmentVehicle}/{investmentVehicleReturn}', 'InvestmentVehicleReturnsController@update')->name('update');
         Route::delete('/{investmentVehicle}/{investmentVehicleReturn}', 'InvestmentVehicleReturnsController@destroy')->name('destroy');
     });
+
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
@@ -85,6 +88,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
         Route::put('/{investment}', 'InvestmentsController@update')->name('update');
         Route::delete('/{investment}', 'InvestmentsController@destroy')->name('destroy');
     });
+
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
@@ -93,11 +97,13 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
         Route::put('/{earning}', 'EarningsController@update')->name('update');
         Route::delete('/{earning}', 'EarningsController@destroy')->name('destroy');
     });
+
 });
 
 
 Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole:fund-manager'])->group(function () {
-    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
+
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
     Route::name('investors.')->prefix('investors')->group(function(){
         Route::get('/', 'UsersController@index')->name('index');
@@ -108,14 +114,17 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
         Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
         Route::put('/{user}', 'UsersController@update')->name('update');
     });
+
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
         Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
     });
+
     Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
         Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
     });
+
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
@@ -126,32 +135,40 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
         Route::put('/{investment}', 'InvestmentsController@update')->name('update');
         Route::delete('/{investment}', 'InvestmentsController@destroy')->name('destroy');
     });
+
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
         Route::get('/search', 'EarningsController@index')->name('searched');
     });
+
 });
 
 
 Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(['auth','checkRole:investor'])->group(function () {
-    Route::get('/dashboard', 'InvestmentVehiclesController@index')->name('dashboard');
+
+    Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
         Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
     });
+
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
         Route::get('/search', 'InvestmentsController@index')->name('searched');
     });
+
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
         Route::get('/search', 'EarningsController@index')->name('searched');
     });
+
     Route::name('my-account.')->prefix('my-account')->group(function(){
         Route::get('/', 'MyAccountController@index')->name('index');
     });
+
 });

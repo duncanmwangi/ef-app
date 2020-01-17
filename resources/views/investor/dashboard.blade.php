@@ -14,7 +14,7 @@
         <div class="col-md-8">
             <div class="mb-3 card">
                 <div class="card-header-tab card-header">
-                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">New Investments & New Investors</div>
+                    <div class="card-header-title font-size-lg text-capitalize font-weight-normal">New Investments </div>
                 </div>
                 <div class="pt-0 card-body">
                     <div id="investments-investor-chart"></div>
@@ -87,22 +87,6 @@
                                             </div>
                                             <div class="widget-content-right">
                                                 <div class="widget-numbers text-success">{{moneyFormat($thisMonth->new_investments_amount)}}</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="bg-transparent list-group-item">
-                                <div class="widget-content p-0">
-                                    <div class="widget-content-outer">
-                                        <div class="widget-content-wrapper">
-                                            <div class="widget-content-left">
-
-                                                <div class="widget-heading">Number of New Investors</div>
-                                                <div class="widget-subheading">Total Number of New Investors</div>
-                                            </div>
-                                            <div class="widget-content-right">
-                                                <div class="widget-numbers text-success">{{num($thisMonth->new_investors)}}</div>
                                             </div>
                                         </div>
                                     </div>
@@ -188,21 +172,6 @@
                                         </div>
                                     </div>
                                 </li>
-                                <li class="bg-transparent list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <div class="widget-heading">Investors</div>
-                                                    <div class="widget-subheading">Total number of new investors</div>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <div class="widget-numbers text-success">{{num($allTime->investors)}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                         <div class="col-md-12 col-lg-4">
@@ -232,23 +201,6 @@
                                                 </div>
                                                 <div class="widget-content-right">
                                                     <div class="widget-numbers text-primary">{{moneyFormat($allTime->mature_investments_amount)}}</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
-                                
-                               
-                                <li class="bg-transparent list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <div class="widget-heading">&nbsp;</div>
-                                                    <div class="widget-subheading">&nbsp;</div>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <div class="widget-numbers text-primary">&nbsp;</div>
                                                 </div>
                                             </div>
                                         </div>
@@ -289,22 +241,6 @@
                                         </div>
                                     </div>
                                 </li>
-                               
-                                <li class="bg-transparent list-group-item">
-                                    <div class="widget-content p-0">
-                                        <div class="widget-content-outer">
-                                            <div class="widget-content-wrapper">
-                                                <div class="widget-content-left">
-                                                    <div class="widget-heading">&nbsp;</div>
-                                                    <div class="widget-subheading">&nbsp;</div>
-                                                </div>
-                                                <div class="widget-content-right">
-                                                    <div class="widget-numbers text-primary">&nbsp;</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
@@ -333,11 +269,6 @@
                         name: 'Investments',
                         type: 'column',
                         data: [{{implode(',', $investments)}}]
-                    },
-                    {
-                        name: 'Investors',
-                        type: 'line',
-                        data: [{{implode(',', $investors)}}]
                     }],
                     stroke: {
                         width: [0, 4]
@@ -355,7 +286,7 @@
                     }, {
                         opposite: true,
                         title: {
-                            text: 'New Investors'
+                            text: 'New Investments'
                         }
                     }]
 
