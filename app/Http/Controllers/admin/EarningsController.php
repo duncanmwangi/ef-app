@@ -70,7 +70,7 @@ class EarningsController extends Controller
             }
             if(!empty($investor)){
                 $earnings->where('investments.user_id','=',$investor);
-                $filterArray['investorinvestor'] = $investor;
+                $filterArray['investor'] = $investor;
             }
             if(!empty($investment_vehicle)){
                 $earnings->where('investments.investment_vehicle_id','=',$investment_vehicle);

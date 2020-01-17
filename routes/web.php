@@ -48,6 +48,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     Route::name('users.')->prefix('users')->group(function(){
     	Route::get('/', 'UsersController@index')->name('index');
         Route::post('/search', 'UsersController@index')->name('search');
+        Route::get('/search', 'UsersController@index')->name('searched');
     	Route::get('/create', 'UsersController@create')->name('create');
     	Route::post('/', 'UsersController@store')->name('store');
     	Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
@@ -58,7 +59,8 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     });
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
-    	Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
+        Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
+    	Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
     	Route::get('/create', 'InvestmentVehiclesController@create')->name('create');
     	Route::post('/', 'InvestmentVehiclesController@store')->name('store');
     	Route::get('/{investmentVehicle}/edit', 'InvestmentVehiclesController@edit')->name('edit');
@@ -76,6 +78,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
+        Route::get('/search', 'InvestmentsController@index')->name('searched');
         Route::get('/create', 'InvestmentsController@create')->name('create');
         Route::post('/', 'InvestmentsController@store')->name('store');
         Route::get('/{investment}/edit', 'InvestmentsController@edit')->name('edit');
@@ -85,6 +88,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
+        Route::get('/search', 'EarningsController@index')->name('searched');
         Route::get('/{earning}/edit', 'EarningsController@edit')->name('edit');
         Route::put('/{earning}', 'EarningsController@update')->name('update');
         Route::delete('/{earning}', 'EarningsController@destroy')->name('destroy');
@@ -98,6 +102,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
     Route::name('investors.')->prefix('investors')->group(function(){
         Route::get('/', 'UsersController@index')->name('index');
         Route::post('/search', 'UsersController@index')->name('search');
+        Route::get('/search', 'UsersController@index')->name('searched');
         Route::get('/create', 'UsersController@create')->name('create');
         Route::post('/', 'UsersController@store')->name('store');
         Route::get('/{user}/edit', 'UsersController@edit')->name('edit');
@@ -106,6 +111,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
+        Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
     });
     Route::name('investment-vehicle-returns.')->prefix('investment-vehicle-returns')->group(function(){
         Route::get('/{investmentVehicle}', 'InvestmentVehicleReturnsController@index')->name('index');
@@ -113,6 +119,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
+        Route::get('/search', 'InvestmentsController@index')->name('searched');
         Route::get('/create', 'InvestmentsController@create')->name('create');
         Route::post('/', 'InvestmentsController@store')->name('store');
         Route::get('/{investment}/edit', 'InvestmentsController@edit')->name('edit');
@@ -122,6 +129,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
+        Route::get('/search', 'EarningsController@index')->name('searched');
     });
 });
 
@@ -131,14 +139,17 @@ Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(
     Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
+        Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
     });
     Route::name('investments.')->prefix('investments')->group(function(){
         Route::get('/', 'InvestmentsController@index')->name('index');
         Route::post('/search', 'InvestmentsController@index')->name('search');
+        Route::get('/search', 'InvestmentsController@index')->name('searched');
     });
     Route::name('earnings.')->prefix('earnings')->group(function(){
         Route::get('/', 'EarningsController@index')->name('index');
         Route::post('/search', 'EarningsController@index')->name('search');
+        Route::get('/search', 'EarningsController@index')->name('searched');
     });
     Route::name('my-account.')->prefix('my-account')->group(function(){
         Route::get('/', 'MyAccountController@index')->name('index');

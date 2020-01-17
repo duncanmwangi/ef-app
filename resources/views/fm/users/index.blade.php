@@ -96,7 +96,7 @@
 	                <tbody>
 
 		                @if (count($users)>0)
-		                	@php $offset = $users->LastItem() @endphp
+		                	@php $offset = $users->firstItem() @endphp
 		                    @foreach ($users as $user)
 						        <tr>
 				                    <th scope="row">{{ $offset++ }}</th>
