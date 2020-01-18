@@ -14,6 +14,11 @@
 
     <div class="main-card mb-3 card">
 	        <div class="card-header">
+
+	            @if ( count(request()->all()))
+					{!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+	            @endif
+	            
 	            Investment Vehicles
 	        </div>
 	        <div class="card-body px-2 py-0">

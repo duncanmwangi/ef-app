@@ -114,6 +114,7 @@ class User extends Authenticatable
 
     public function investments()
     {
+        
         return $this->hasMany('App\Investment','user_id');
     }
     

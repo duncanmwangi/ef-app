@@ -29,6 +29,7 @@ class UsersController extends Controller
             'phone' => 'nullable|max:50',
             'state' => 'nullable|max:5',
             'role' => "nullable|in:administrator,fund-manager,investor",
+            'fund_manager' => 'nullable|exists:users,id',
             'date_created_from' => 'nullable|date|date_format:m/d/Y|before_or_equal:today',
             'date_created_to' => 'nullable|date|date_format:m/d/Y|before_or_equal:today',
         ],
@@ -50,6 +51,7 @@ class UsersController extends Controller
             $phone = $request->input('phone');
             $state = $request->input('state');
             $role = $request->input('role');
+            $fund_manager = $request->input('fund_manager');
             $date_created_from = $request->input('date_created_from');
             $date_created_to = $request->input('date_created_to');
             $sort = $request->input('sort');
@@ -64,6 +66,11 @@ class UsersController extends Controller
             if(!empty($lastName)){
                 $users->where('lastName','LIKE',"%$lastName%");
                 $filterArray['lastName'] = $lastName;
+            }
+            if(!empty($fund_manager)){
+                $users->where('users.user_id','=',$fund_manager);
+                $users->where('role','=','investor');
+                $filterArray['fund_manager'] = $fund_manager;
             }
             if(!empty($email)){
                 $users->where('email','LIKE',"%$email%");
@@ -174,6 +181,8 @@ class UsersController extends Controller
         $data['filterArray'] = $filterArray;
 
         $data['stats'] = (object)$stats;
+
+        $data['fund_managers'] = User::allFundManagers();
 
         return view('admin.users.index',$data);
     }

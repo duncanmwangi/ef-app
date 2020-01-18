@@ -18,6 +18,11 @@
         <form method="POST" action="{{ route('admin.investments.store') }}"> 
             @csrf
             <div class="card-header">
+
+                @if ( !count(request()->all()))
+                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+                @endif
+                
                 Create New Investment
             </div>
             <div class="card-body">

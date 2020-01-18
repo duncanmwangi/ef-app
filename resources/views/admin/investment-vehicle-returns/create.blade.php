@@ -18,6 +18,11 @@
         <form method="POST" action="{{ route('admin.investment-vehicle-returns.store',$investmentVehicle) }}"> 
             @csrf
             <div class="card-header">
+
+                @if ( !count(request()->all()))
+                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+                @endif
+                
                 Create New Investment Vehicle Return
                 <div class="btn-actions-pane-right">{!! editButton(route('admin.investment-vehicle-returns.index',$investmentVehicle),$investmentVehicle->title.' '.ucwords($investmentVehicle->term).' Returns','btn-secondary','lnr-pointer-left') !!}</div>
             </div>

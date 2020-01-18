@@ -14,6 +14,11 @@
 
     <div class="main-card mb-3 card">
 	        <div class="card-header">
+
+	            @if ( count(request()->all()))
+					{!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+	            @endif
+	            
 	            Users
 	        </div>
 	        <div class="card-body px-2 py-0">
@@ -75,8 +80,23 @@
 	                    </div>
 	                </div>
 
-		        	<div class="form-row mb-3 px-2">
+		        	<div class="form-row px-2">
 	                    
+						<div class="col-md-4">
+	                        <div class="position-relative form-group">
+	                            <label for="fund_manager" class="">Fund Manager</label>
+	                            <select id="fund_manager" name="fund_manager" class="form-control form-control-sm @error('fund_manager') is-invalid @enderror">
+	                                <option value="">Select Fund Manager</option>
+	                                @php 
+	                                $selectedfund_manager = $filterArray['fund_manager'] ?? '';
+	                                @endphp
+	                                @foreach($fund_managers as $current_fund_manager)
+	                                    @php $selected = $current_fund_manager->id==$selectedfund_manager ?'selected="selected"':''; @endphp
+	                                    <option value="{{ $current_fund_manager->id }}" {{$selected}}>{{ $current_fund_manager->name }}</option>
+	                                @endforeach
+	                            </select>
+	                        </div>
+	                    </div>
 						<div class="col-md-4">
 	                        <div class="position-relative form-group">
 	                            <label for="date_created_from" created_toclass="">Date Created From</label>
@@ -89,8 +109,11 @@
 	                            <input name="date_created_to" id="date_created_to" placeholder="" type="text" value="{{ isset($filterArray['date_created_to']) ?formatDate($filterArray['date_created_to'] ,'m/d/Y'):'' }}" class="form-control form-control-sm datepicker @error('date_created_to') is-invalid @enderror" data-toggle="datepicker">
 	                        </div>
 	                    </div>
-	                    <div class="col-md-4 pt-1 pl-3">
-	                        <button type="submit" class="btn-shadow btn-wide btn-pill btn-hover-shine btn btn-success mt-3 ml-3">Search</button>
+	                </div>
+	                <div class="form-row mb-3 px-2">
+
+	                    <div class="col-md-4 pl-3">
+	                        <button type="submit" class="btn-shadow btn-wide btn-pill btn-hover-shine btn btn-success ml-3">Search</button>
 	                    </div>
 	                </div>
 				</form>
@@ -122,7 +145,16 @@
 				                    <td>{{ $user->phone }}</td>
 				                    <td>{!! badge($user->role_name,$user->role=='admin'?'danger':($user->role=='fund-manager'?'info':'success')) !!}</td>
 				                    <td>{{ formatDate($user->created_at) }}</td>
-				                    <td>{!! editButton(route('admin.users.edit',$user->id)) !!} {!! deleteButton(route('admin.users.destroy',$user->id),'Delete','delete-user') !!}</td>
+				                    <td>
+				                    	@php 
+				                    		if($user->role=='fund-manager' && $user->investors->count()){ $investments_route_array = ['fund_manager'=>$user->id]; } 
+				                    		if($user->role=='investor' && $user->investments->count()){ $investments_route_array = ['fund_manager'=>$user->user_id,'investor'=>$user->id]; } 
+				                    	@endphp
+				                    	{!! $user->role=='fund-manager' && $user->investors->count()?editButton(route('admin.users.index',['fund_manager'=>$user->id]),'Investors','btn-warning'):'' !!} {!! isset($investments_route_array)? editButton(route('admin.investments.index',$investments_route_array),'Investments','btn-success'):'' !!} {!! isset($investments_route_array)? editButton(route('admin.earnings.index',$investments_route_array),'Earnings','btn-alternate'):'' !!} {!! editButton(route('admin.users.edit',$user->id)) !!} {!! deleteButton(route('admin.users.destroy',$user->id),'Delete','delete-user') !!}
+										@php 
+											unset($investments_route_array)
+										@endphp
+				                    </td>
 				                </tr>
 						    @endforeach
 						@else

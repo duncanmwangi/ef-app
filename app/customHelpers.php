@@ -81,12 +81,12 @@ function badge($text="badge",$cssClasses="primary"){
 
 function editButton($link="#",$text="Edit",$buttonClasses="",$iconClasses = "lnr-pencil")
 {
-	return '<a href="'.$link.'"><button type="button" class="btn-icon btn btn-primary btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
+	return '<a href="'.$link.'"><button type="button" class="btn-icon btn btn-primary btn-sm btnsmp mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button></a>';
 }
 
 function deleteButton($link="#",$text="Delete",$buttonClasses="",$iconClasses = "lnr-trash")
 {
-	return '<form class="delete-form" method="POST" action="'.$link.'"> '.csrf_field().method_field('DELETE').'<button type="submit" class="btn-icon btn btn-danger btn-xs mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button> </form>';
+	return '<form class="delete-form" method="POST" action="'.$link.'"> '.csrf_field().method_field('DELETE').'<button type="submit" class="btn-icon btn btn-danger btn-sm btnsmp mx-0 my-0 '.$buttonClasses.'"><i class="btn-icon-wrapper '.$iconClasses.'"> </i>'.$text.'</button> </form>';
 }
 
 function formatDate($d,$format = 'm - d - Y'){

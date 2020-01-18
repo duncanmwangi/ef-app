@@ -16,6 +16,11 @@
         <form method="POST" action="{{ route('admin.earnings.update',$earning) }}"> 
             @csrf @method('PUT')
             <div class="card-header">
+
+                @if ( !count(request()->all()))
+                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+                @endif
+                
                 Edit Earnings
             </div>
             <div class="card-body">

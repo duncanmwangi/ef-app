@@ -14,6 +14,11 @@
 
     <div class="main-card mb-3 card">
 	        <div class="card-header">
+
+	            @if ( count(request()->all()))
+					{!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
+	            @endif
+	            
 	            Investments
 	        </div>
 	        <div class="card-body px-2 py-0">
@@ -170,14 +175,14 @@
 		                <tr>
 		                    <th>#</th>
 		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'id'))}}">ID <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'investorID'))}}">Investor ID <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'investorID'))}}">Investor<br/>ID <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'investorName'))}}">Investor Name <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'investmentVehicle'))}}">Investment Vehicle <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'status'))}}">Investment Status <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'maturityStatus'))}}">Maturity Status <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'maturityDate'))}}">Maturity Date <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'status'))}}">Investment<br/>Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'maturityStatus'))}}">Maturity<br/>Status <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'maturityDate'))}}">Maturity<br/>Date <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'amount'))}}">Amount <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investments.index',sort_by($filterArray,'created_at'))}}">Date<br/>Created <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th>Actions</th>
 		                </tr>
 	                </thead>
@@ -197,7 +202,7 @@
 				                    <td>{{ formatDate($investment->maturity_date) }}</td>
 				                    <td>{{ moneyFormat($investment->amount) }}</td>
 				                    <td>{{ formatDate($investment->created_at) }}</td>
-				                    <td>{!! editButton(route('admin.investments.edit',$investment)) !!} {!! deleteButton(route('admin.investments.destroy',$investment),'Delete','delete-investment') !!}</td>
+				                    <td> {!! $investment->earnings->count()? editButton(route('admin.earnings.index',['investment_id'=>$investment->id]),'Earnings','btn-alternate'):'' !!} {!! editButton(route('admin.investments.edit',$investment)) !!} {!! deleteButton(route('admin.investments.destroy',$investment),'Delete','delete-investment') !!}</td>
 				                </tr>
 						    @endforeach
 						@else
