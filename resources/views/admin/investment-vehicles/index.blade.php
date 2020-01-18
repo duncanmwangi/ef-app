@@ -145,7 +145,7 @@
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'title'))}}">Title <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'waiting_period'))}}">Waiting<br/>Period <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'term'))}}">Terms <i class="fa fa-fw fa-sort"></i></a></th>
-		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of<br/>earning terms <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'number_of_terms'))}}">No of<br/>earning<br/>terms <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'status'))}}">Status <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'num'))}}">No of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'amount'))}}">Amount of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
@@ -169,7 +169,7 @@
 				                    <td>{{ num($investmentVehicle->num) }}</td>
 				                    <td>{{ moneyFormat($investmentVehicle->amount) }}</td>
 				                    <td>{{ formatDate($investmentVehicle->created_at) }}</td>
-				                    <td>{!! editButton(route('admin.investment-vehicle-returns.index',$investmentVehicle),'Returns','btn-success','lnr-eye') !!} {!! editButton(route('admin.investment-vehicles.edit',$investmentVehicle)) !!} {!! $investmentVehicle->returns->count()<1?deleteButton(route('admin.investment-vehicles.destroy',$investmentVehicle),'Delete','delete-investmentVehicle'):'' !!}</td>
+				                    <td>{!! editButton(route('admin.investments.index',['investment_vehicle'=>$investmentVehicle->id]),'Investments','btn-info') !!} {!! $investmentVehicle->returns->count()?editButton(route('admin.investment-vehicle-returns.index',$investmentVehicle),'Returns','btn-success','lnr-eye'):"" !!} {!! $investmentVehicle->returns->count()?editButton(route('admin.earnings.index',['investment_vehicle'=>$investmentVehicle->id]),'Earnings','btn-alternate','lnr-eye'):"" !!} {!! editButton(route('admin.investment-vehicles.edit',$investmentVehicle)) !!} {!! $investmentVehicle->returns->count()<1?deleteButton(route('admin.investment-vehicles.destroy',$investmentVehicle),'Delete','delete-investmentVehicle'):'' !!}</td>
 				                </tr>
 						    @endforeach
 						@else
