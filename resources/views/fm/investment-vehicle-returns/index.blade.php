@@ -14,6 +14,7 @@
 
     <div class="main-card mb-3 card">
 	        <div class="card-header">
+                {!! editButton(route('fm.investment-vehicles.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
 	            Investment Vehicle Returns For: {{ $investmentVehicle->title }}
 	        </div>
 	        <div class="card-body px-2 py-0">

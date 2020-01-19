@@ -18,6 +18,7 @@
     	<form method="POST" action="{{ route('fm.investors.store') }}"> 
     		@csrf
 	        <div class="card-header">
+                {!! editButton(route('fm.investors.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
 	            Create New Investor
 	        </div>
 	        <div class="card-body">

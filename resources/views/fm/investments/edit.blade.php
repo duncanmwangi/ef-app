@@ -18,6 +18,7 @@
         <form method="POST" action="{{ route('admin.investments.update',$investment) }}"> 
             @csrf @method('PUT')
             <div class="card-header">
+                {!! editButton(route('fm.investments.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
                 Edit Investment
             </div>
             <div class="card-body">
@@ -27,7 +28,7 @@
                         <div class="position-relative form-group">
                             <label for="title" class="">Investor</label>
                             <select id="user_id" name="user_id" class="form-control @error('user_id') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investor</option>
                                 @php 
                                 $selectedUser_id = old('user_id') ?? $investment->user_id ?? '';
                                 @endphp
@@ -43,7 +44,7 @@
                         <div class="position-relative form-group">
                             <label for="description" class="">Investment Vehicle</label>
                             <select id="investment_vehicle_id" name="investment_vehicle_id" class="form-control @error('investment_vehicle_id') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investment Vehicle</option>
                                 @php 
                                 $selectedInvestmentVehicle_id = old('investment_vehicle_id') ?? $investment->investment_vehicle_id ?? '';
                                 @endphp
@@ -70,7 +71,7 @@
                             <label for="status" class="">Investment Status</label>
                             
                             <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investment Status</option>
                                 @php 
                                 $statuses = ['PENDING', 'PROCESSING','APPROVED','DECLINED']; 
                                 $selectedStatus = old('status') ?? $investment->status ?? '';

@@ -15,9 +15,8 @@
     <div class="main-card mb-3 card">
 	        <div class="card-header">
 
-	            @if ( count(request()->all()))
-					{!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
-	            @endif
+	            
+                {!! editButton(route('admin.investment-vehicles.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
 	            
 	            Investment Vehicle Returns For: {{ $investmentVehicle->title }}
 	            <div class="btn-actions-pane-right">{!! editButton(route('admin.investment-vehicle-returns.create',$investmentVehicle),'Create New '.ucwords($investmentVehicle->term).' Return','btn-success','lnr-plus-circle') !!}</div>

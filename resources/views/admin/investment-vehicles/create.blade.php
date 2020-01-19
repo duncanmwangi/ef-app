@@ -18,10 +18,7 @@
     	<form method="POST" action="{{ route('admin.investment-vehicles.store') }}"> 
     		@csrf
 	        <div class="card-header">
-
-                @if ( !count(request()->all()))
-                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
-                @endif
+                {!! editButton(route('admin.investment-vehicles.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
 
 	            Create New Investment Vehicle
 	        </div>

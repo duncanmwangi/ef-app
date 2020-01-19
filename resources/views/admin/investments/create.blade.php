@@ -18,10 +18,7 @@
         <form method="POST" action="{{ route('admin.investments.store') }}"> 
             @csrf
             <div class="card-header">
-
-                @if ( !count(request()->all()))
-                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
-                @endif
+                {!! editButton(route('admin.investments.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
                 
                 Create New Investment
             </div>
@@ -32,7 +29,7 @@
                         <div class="position-relative form-group">
                             <label for="title" class="">Investor</label>
                             <select id="user_id" name="user_id" class="form-control @error('user_id') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investor</option>
                                 @foreach($investors as $investor)
                                     @php $selected = $investor->id==old('user_id') ?'selected="selected"':''; @endphp
                                     <option value="{{ $investor->id }}" {{$selected}}>{{ $investor->name }}</option>
@@ -45,7 +42,7 @@
                         <div class="position-relative form-group">
                             <label for="description" class="">Investment Vehicle</label>
                             <select id="investment_vehicle_id" name="investment_vehicle_id" class="form-control @error('investment_vehicle_id') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investment Vehicle</option>
                                 @foreach($investmentVehicles as $investmentVehicle)
                                     @php $selected = $investmentVehicle->id==old('investment_vehicle_id') ?'selected="selected"':''; @endphp
                                     <option value="{{ $investmentVehicle->id }}" {{$selected}}>{{ $investmentVehicle->title }}</option>
@@ -69,7 +66,7 @@
                             <label for="status" class="">Investment Status</label>
                             
                             <select id="status" name="status" class="form-control @error('status') is-invalid @enderror">
-                                <option value="">Select Status</option>
+                                <option value="">Select Investment Status</option>
                                 @php 
                                 $statuses = ['PENDING', 'PROCESSING','APPROVED','DECLINED']; 
                                 @endphp

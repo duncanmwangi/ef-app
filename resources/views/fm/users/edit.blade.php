@@ -18,6 +18,7 @@
     	<form method="POST" action="{{ route('fm.investors.update',$user->id) }}"> 
     		@csrf @method('PUT')
 	        <div class="card-header">
+                {!! editButton(route('fm.investors.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
 	            Edit Investor
 	        </div>
 	        <div class="card-body">

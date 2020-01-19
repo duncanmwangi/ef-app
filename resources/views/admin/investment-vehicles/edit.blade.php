@@ -18,10 +18,7 @@
         <form method="POST" action="{{ route('admin.investment-vehicles.update',$investmentVehicle) }}"> 
             @csrf @method('PUT')
             <div class="card-header">
-
-                @if ( !count(request()->all()))
-                    {!! editButton(url()->previous(),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
-                @endif
+                {!! editButton(route('admin.investment-vehicles.index'),'Back','btn-xs btn-secondary mx-3 back-btn','lnr-pointer-left') !!}
                 
                 Edit Investment Vehicle
             </div>
