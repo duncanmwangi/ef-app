@@ -106,7 +106,15 @@
 				                    <td>{{ $user->phone }}</td>
 				                    <td>{!! badge($user->role_name,$user->role=='admin'?'danger':($user->role=='fund-manager'?'info':'success')) !!}</td>
 				                    <td>{{ formatDate($user->created_at) }}</td>
-				                    <td>{!! editButton(route('fm.investors.edit',$user->id)) !!}</td>
+				                    <td>
+										@php 
+				                    		if($user->role=='investor' && $user->investments->count()){ $investments_route_array = ['investor'=>$user->id]; } 
+				                    	@endphp
+				                    	{!! isset($investments_route_array)? editButton(route('fm.investments.index',$investments_route_array),'Investments','btn-success'):'' !!} {!! isset($investments_route_array)? editButton(route('fm.earnings.index',$investments_route_array),'Earnings','btn-alternate'):'' !!} {!! editButton(route('fm.investors.edit',$user->id)) !!}
+										@php 
+											unset($investments_route_array)
+										@endphp
+				                    </td>
 				                </tr>
 						    @endforeach
 						@else

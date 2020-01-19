@@ -164,7 +164,7 @@
 				                    <td>{{ num($investmentVehicle->num) }}</td>
 				                    <td>{{ moneyFormat($investmentVehicle->amount) }}</td>
 				                    <td>{{ formatDate($investmentVehicle->created_at) }}</td>
-				                    <td>{!! $investmentVehicle->returns->count()>0?editButton(route('fm.investment-vehicle-returns.index',$investmentVehicle),'Returns','btn-warning','lnr-eye'):''; !!} </td>
+				                    <td>{!! editButton(route('fm.investments.index',['investment_vehicle'=>$investmentVehicle->id]),'Investments','btn-info') !!} {!! $investmentVehicle->returns->count()>0?editButton(route('fm.investment-vehicle-returns.index',$investmentVehicle),'Returns','btn-warning','lnr-eye'):''; !!}  {!! $investmentVehicle->returns->count()?editButton(route('fm.earnings.index',['investment_vehicle'=>$investmentVehicle->id]),'Earnings','btn-alternate','lnr-eye'):"" !!}</td>
 				                </tr>
 						    @endforeach
 						@else

@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function(){
 
 
 
-Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','checkRole:admin'])->group(function () {
+Route::name('admin.')->prefix('a')->namespace('admin')->middleware(['auth','checkRole:admin'])->group(function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -101,7 +101,7 @@ Route::name('admin.')->prefix('admin')->namespace('admin')->middleware(['auth','
 });
 
 
-Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole:fund-manager'])->group(function () {
+Route::name('fm.')->prefix('f')->namespace('fm')->middleware(['auth','checkRole:fund-manager'])->group(function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
@@ -145,7 +145,7 @@ Route::name('fm.')->prefix('fm')->namespace('fm')->middleware(['auth','checkRole
 });
 
 
-Route::name('investor.')->prefix('investor')->namespace('investor')->middleware(['auth','checkRole:investor'])->group(function () {
+Route::name('investor.')->prefix('i')->namespace('investor')->middleware(['auth','checkRole:investor'])->group(function () {
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 

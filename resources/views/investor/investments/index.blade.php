@@ -143,6 +143,7 @@
 		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'maturityDate'))}}">Maturity Date <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'amount'))}}">Amount <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('investor.investments.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th>Actions</th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -159,6 +160,7 @@
 				                    <td>{{ formatDate($investment->maturity_date) }}</td>
 				                    <td>{{ moneyFormat($investment->amount) }}</td>
 				                    <td>{{ formatDate($investment->created_at) }}</td>
+				                    <td>{!! $investment->earnings->count()? editButton(route('investor.earnings.index',['investment_id'=>$investment->id]),'Earnings','btn-alternate','lnr-eye'):'' !!} </td>
 				                </tr>
 						    @endforeach
 						@else

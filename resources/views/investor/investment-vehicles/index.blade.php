@@ -145,6 +145,7 @@
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'num'))}}">No of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'amount'))}}">Amount of<br/>Investments <i class="fa fa-fw fa-sort"></i></a></th>
 		                    <th><a href="{{route('admin.investment-vehicles.index',sort_by($filterArray,'created_at'))}}">Date Created <i class="fa fa-fw fa-sort"></i></a></th>
+		                    <th>Actions</th>
 		                </tr>
 	                </thead>
 	                <tbody>
@@ -163,6 +164,7 @@
 				                    <td>{{ num($investmentVehicle->num) }}</td>
 				                    <td>{{ moneyFormat($investmentVehicle->amount) }}</td>
 				                    <td>{{ formatDate($investmentVehicle->created_at) }}</td>
+				                    <td>{!! editButton(route('investor.investments.index',['investment_vehicle'=>$investmentVehicle->id]),'Investments','btn-info','lnr-eye') !!} {!! $investmentVehicle->returns->count()?editButton(route('investor.earnings.index',['investment_vehicle'=>$investmentVehicle->id]),'Earnings','btn-alternate','lnr-eye'):"" !!}</td>
 				                </tr>
 						    @endforeach
 						@else

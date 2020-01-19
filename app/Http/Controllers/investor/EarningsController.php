@@ -23,8 +23,7 @@ class EarningsController extends Controller
         $filterArray = [];
 
         $validator = Validator::make($request->all(), [
-            'fund_manager' => 'nullable|exists:users,id',
-            'investor' => 'nullable|exists:users,id',
+            'investment_id' => 'nullable|exists:investments,id',
             'investment_vehicle' => 'nullable|exists:investment_vehicles,id',
             'amount_operation' => 'nullable|in:equal,less_than,less_than_or_equal,greater_than,greater_than_or_equal_to',
             'amount' => 'nullable|integer|digits_between:1,10',
@@ -45,6 +44,8 @@ class EarningsController extends Controller
 
         $earnings->where('investments.user_id','=',auth()->user()->id);
 
+        $investment_id = $request->input('investment_id');
+        
         $investment_vehicle = $request->input('investment_vehicle');
 
         $amount_operation = $request->input('amount_operation');
@@ -64,6 +65,10 @@ class EarningsController extends Controller
             if(!empty($investment_vehicle)){
                 $earnings->where('investments.investment_vehicle_id','=',$investment_vehicle);
                 $filterArray['investment_vehicle'] = $investment_vehicle;
+            }
+            if(!empty($investment_id)){
+                $earnings->where('investments.id','=',$investment_id);
+                $filterArray['investment_id'] = $investment_id;
             }
             if(!empty($status)){
                 $earnings->where('earnings.status','=',$status);
