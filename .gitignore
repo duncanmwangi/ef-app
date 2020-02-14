@@ -4,6 +4,9 @@
 /public/.htaccess
 /storage/*.key
 /vendor
+/architect-theme
+/.idea
+/.phpintel
 .env
 error_log
 .env.backup
