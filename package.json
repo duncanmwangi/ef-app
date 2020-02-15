@@ -82,6 +82,6 @@
         "textarea-autosize": "^0.4.2",
         "toastr": "^2.1.4",
         "wnumb": "^1.1.0",
-        "yarn": "^1.17.3"
+        "yarn": "^1.22.0"
     }
 }
