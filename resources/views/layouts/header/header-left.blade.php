@@ -6,8 +6,8 @@
     <button class="close"></button>
 </div>
 <ul class="header-megamenu nav">
-    <li class="nav-item c-nav-item" style="font-size: 180%; color: #DCBF7B;">
-        <span>EF Investment Fund APP</span>
+    <li class="nav-item c-nav-item" style="font-size: 180%; color: #fff;">
+        <span>Investment Fund APP</span>
     </li>
     
 </ul>

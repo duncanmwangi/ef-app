@@ -1,4 +1,4 @@
-<div class="app-header header-shadow bg-royal header-text-light">
+<div class="app-header header-shadow bg-info header-text-light">
     @include('layouts.header.logo')
     <div class="app-header__content">
         <div class="app-header-left">

@@ -5,7 +5,7 @@
                 
             </div>
             <div class="app-footer-right">
-                    <div class="text-center opacity-8 mt-3">Copyright &copy; Elite Funds {{ date('Y') }}</div>
+                    <div class="text-center opacity-8 mt-3">Copyright &copy; Solar Funds {{ date('Y') }}</div>
             </div>
         </div>
     </div>

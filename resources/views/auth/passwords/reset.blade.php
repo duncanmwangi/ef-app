@@ -5,7 +5,7 @@
 
 
 <div class="app-container">
-        <div class="h-100 bg-plum-plate bg-animation">
+        <div class="h-100 bg-info bg-animation">
             <div class="d-flex h-100 justify-content-center align-items-center">
                 <div class="mx-auto app-login-box col-md-8">
                     <div class="app-logo-inverse mx-auto mb-3"></div>
@@ -66,7 +66,7 @@
                                 </form>
                         </div>
                     </div>
-                    <div class="text-center text-white opacity-8 mt-3">Copyright &copy; Elite Funds {{ date('Y') }}</div>
+                    <div class="text-center text-white opacity-8 mt-3">Copyright &copy; Solar Funds {{ date('Y') }}</div>
                 </div>
             </div>
         </div>
