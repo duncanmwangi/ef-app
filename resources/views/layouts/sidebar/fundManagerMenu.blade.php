@@ -12,7 +12,7 @@
                 <li class="@if(Route::currentRouteName()=='fm.investment-vehicles.index') mm-active @endif" >
                     <a href="{{ route('fm.investment-vehicles.index') }}" class="@if(Route::currentRouteName()=='fm.investment-vehicles.index') mm-active @endif">
                         <i class="metismenu-icon lnr-cart">
-                        </i>Investment Vehicles
+                        </i>Investment Funds
                     </a>
                 </li>
                 <li class="@if(in_array(Route::currentRouteName(),['fm.investors.create','fm.investors.index'])) mm-active @endif">

@@ -58,7 +58,7 @@ Route::name('admin.')->prefix('a')->namespace('admin')->middleware(['auth','chec
     	Route::get('/{user}/json-investors', 'UsersController@jsonInvestors')->name('jsonInvestors');
     });
     
-    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+    Route::name('investment-vehicles.')->prefix('investment-funds')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
     	Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
@@ -115,7 +115,7 @@ Route::name('fm.')->prefix('f')->namespace('fm')->middleware(['auth','checkRole:
         Route::put('/{user}', 'UsersController@update')->name('update');
     });
 
-    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+    Route::name('investment-vehicles.')->prefix('investment-funds')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
         Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');
@@ -149,7 +149,7 @@ Route::name('investor.')->prefix('i')->namespace('investor')->middleware(['auth'
 
     Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 
-    Route::name('investment-vehicles.')->prefix('investment-vehicles')->group(function(){
+    Route::name('investment-vehicles.')->prefix('investment-funds')->group(function(){
         Route::get('/', 'InvestmentVehiclesController@index')->name('index');
         Route::post('/search', 'InvestmentVehiclesController@index')->name('search');
         Route::get('/search', 'InvestmentVehiclesController@index')->name('searched');

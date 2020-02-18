@@ -11,7 +11,7 @@
                 <li class="@if(Route::currentRouteName()=='investor.investment-vehicles.index') mm-active @endif" >
                     <a href="{{ route('investor.investment-vehicles.index') }}" class="@if(Route::currentRouteName()=='investor.investment-vehicles.index') mm-active @endif">
                         <i class="metismenu-icon lnr-cart">
-                        </i>Investment Vehicles
+                        </i>Investment Funds
                     </a>
                 </li>
         
