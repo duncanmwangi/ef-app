@@ -1,4 +1,4 @@
-<div class="app-sidebar sidebar-shadow bg-light sidebar-text-dark">
+<div class="app-sidebar sidebar-shadow bg-white sidebar-text-dark">
     @include('layouts.header/logo')
     <div class="scrollbar-sidebar">
         <div class="app-sidebar__inner">
